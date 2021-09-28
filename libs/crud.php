@@ -46,7 +46,7 @@
             $_SESSION['color']=$fila['COLOR'];
             $_SESSION['usuario']=$fila['USUARIO'];
             $_SESSION['clave']=$fila['CLAVE'];
-            header("location:index.php");
+            header("location:index.html");
         }else {
             echo "<script>alert('Contraseña incorrecta');
             </script>";

@@ -45,7 +45,7 @@
                                 <br>
                             </div>
                             <div class="form-group" >
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Ingresar">
+                                <input type="submit" name="btnIngresar" value="Ingresar"class="btn btn-info btn-md">
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Registrar">
                             </div>
                         </form>
