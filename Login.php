@@ -1,3 +1,17 @@
+<?php
+    session_start();
+    require "limpiar.php";
+    include_once "libs/crud.php";
+    
+    if (isset($_SESSION['usuarios']) == FALSE) {
+        $_SESSION['usuarios'] = [];
+    }
+    if (isset($_POST['btnIngresar'])) {
+        $usuario = LimpiarCadena($_POST['txtUsuario']);
+        $contrasena = hash("sha512",LimpiarCadena($_POST['txtClave']));
+        login($usuario,$contrasena);
+    }
+?>
 <html>
 
   <!-- Google Fonts -->
@@ -23,11 +37,11 @@
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input name="txtUsuario" id="txtUsuario" type="text" pattern="[A-Za-z9-0]" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
