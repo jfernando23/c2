@@ -42,13 +42,11 @@
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
                                 <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]"class="form-control">
+                                <br>
                             </div>
-                            <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+                            <div class="form-group" >
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Ingresar">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Registrar">
                             </div>
                         </form>
                     </div>
