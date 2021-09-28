@@ -1,5 +1,5 @@
 <?php
-    function crearusu($Nombre,$Apellido,$Fecha,$Foto,$Hijos,$Color,$Usuario,$Contrasena){
+    function crearusu($Nombre,$Apellido,$Correo,$Direccion,$Hijos,$Ecivil,$Foto,$Usuario,$Contrasena){
         require "conexion.php";
         $sentencia=$conexion->prepare("SELECT * FROM `usuarios` WHERE USUARIO = ?");
         $sentencia->bind_param('s',$Usuario);
@@ -12,7 +12,7 @@
         }
         else{
         $sentencia=$conexion->prepare("INSERT INTO `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `FECHA`=?, `FOTO`=?, `CANTIDAD_HIJOS`=?, `COLOR`=?, `USUARIO`=?, `CLAVE`=?");
-        $sentencia->bind_param('ssssisss',$Nombre,$Apellido,$Fecha,$Foto,$Hijos,$Color,$Usuario,$Contrasena);
+        $sentencia->bind_param('sssssissss',$Nombre,$Apellido,$Correo,$Direccion,$Hijos,$Ecivil,$Foto,$Usuario,$Contrasena);
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
