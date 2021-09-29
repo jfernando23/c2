@@ -39,14 +39,15 @@
         if ($contrasena == $pass_db) {
             $_SESSION['id']=$fila['ID_USUARIO'];
             $_SESSION['nombre']=$fila['NOMBRE'];
-            $_SESSION['apellido']=$fila['APELLIDO'];
-            $_SESSION['fecha']=$fila['FECHA'];
+            $_SESSION['apellidos']=$fila['APELLIDO'];
+            $_SESSION['correo']=$fila['CORREO'];
+            $_SESSION['direccion']=$fila['DIRECCION'];
+            $_SESSION['hijos']=$fila['HIJOS'];
+            $_SESSION['estado']=$fila['ESTADO'];
             $_SESSION['foto']=$fila['FOTO'];
-            $_SESSION['hijos']=$fila['CANTIDAD_HIJOS'];
-            $_SESSION['color']=$fila['COLOR'];
             $_SESSION['usuario']=$fila['USUARIO'];
             $_SESSION['clave']=$fila['CLAVE'];
-            header("location:index.html");
+            header("location:principal.php");
         }else {
             echo "<script>alert('Contraseña incorrecta');
             </script>";

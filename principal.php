@@ -1,3 +1,11 @@
+<?php
+  session_start();
+
+  $img = $_SESSION['foto'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +53,8 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+        <img src="archivos/<?php echo $img;?></p>" alt="" class="img-fluid rounded-circle">
+        echo '<div align="center">'."<img src='archivos/$img' width='200' height='200'>".'</div><br>';
         <h1 class="text-light"><a href="index.html">Alex Smith</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
