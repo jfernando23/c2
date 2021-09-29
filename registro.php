@@ -67,7 +67,7 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
+                        <form id="login-form" class="form" action="" method="post" enctype="multipart/form-data">
                             <h3 class="text-center text-info">Registro</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Nombres:</label><br>
@@ -75,23 +75,31 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Apellidos:</label><br>
-                                <input name="txtApellidos" id="txtApellidos" type="password" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtApellidos" id="txtApellidos" type="text" pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Correo:</label><br>
-                                <input name="txtCorreo" id="txtCorreo" type="password" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtCorreo" id="txtCorreo" type="text" pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Dirección:</label><br>
-                                <input name="txtDir" id="txtDir" type="password" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtDir" id="txtDir" type="text" pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Numero de Hijos:</label><br>
-                                <input name="txtNumHij" id="txtNumHij" type="password" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtNumHij" id="txtNumHij" type="text" pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Estado Civil:</label><br>
-                                <input name="txtEstCivil" id="txtEstCivil" type="password" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtEstCivil" id="txtEstCivil" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Usuario:</label><br>
+                                <input name="txtUsuario" id="txtUsuario" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Contraseña:</label><br>
+                                <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Foto de Pérfil:</label><br>

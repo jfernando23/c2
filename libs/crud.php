@@ -11,8 +11,8 @@
         </script>";
         }
         else{
-        $sentencia=$conexion->prepare("INSERT INTO `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `FECHA`=?, `FOTO`=?, `CANTIDAD_HIJOS`=?, `COLOR`=?, `USUARIO`=?, `CLAVE`=?");
-        $sentencia->bind_param('sssssissss',$Nombre,$Apellido,$Correo,$Direccion,$Hijos,$Ecivil,$Foto,$Usuario,$Contrasena);
+        $sentencia=$conexion->prepare("INSERT INTO `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=?, `USUARIO`=?, `CLAVE`=?");
+        $sentencia->bind_param('ssssissss',$Nombre,$Apellido,$Correo,$Direccion,$Hijos,$Ecivil,$Foto,$Usuario,$Contrasena);
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
