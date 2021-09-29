@@ -25,8 +25,14 @@
             
                     $dir = opendir($directorio);
                     $ruta = $directorio.'/'.$filename;
+            
+                    if (move_uploaded_file($temporal, $ruta)) {
+                        echo "El archivo $filename se ha almacenado correctamente";
+                    } else {
+                        echo "Ha ocurrido un error";
+                    }
                     closedir($dir);
-                } 
+                }
             }
         }else{
             echo "<script>alert('No se pudo cargar archivo');
