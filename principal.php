@@ -402,34 +402,34 @@
 
             <form action="forms/contact.php" method="post" role="form" class="php-email-form">
               
-            <h3 class="text-center text-info">Registro</h3>
+            <h3 class="text-center text-info">Mis Datos</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Nombres:</label><br>
-                                <input name="txtNombre" id="txtNombre" type="text" pattern="[A-Za-z9-0]" class="form-control">
+                                <input name="txtNombre" id="txtNombre" type="text" value= <?php echo $_SESSION['nombre'];?> pattern="[A-Za-z9-0]" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Apellidos:</label><br>
-                                <input name="txtApellidos" id="txtApellidos" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtApellidos" id="txtApellidos" type="text" value= <?php echo $_SESSION['apellidos'];?> pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Correo:</label><br>
-                                <input name="txtCorreo" id="txtCorreo" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtCorreo" id="txtCorreo" type="text" value= <?php echo $_SESSION['correo'];?> pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Dirección:</label><br>
-                                <input name="txtDir" id="txtDir" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtDir" id="txtDir" type="text" value=<?php echo $_SESSION['direccion'];?> pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Numero de Hijos:</label><br>
-                                <input name="txtNumHij" id="txtNumHij" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtNumHij" id="txtNumHij" type="text" value= <?php echo $_SESSION['hijos'];?> pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Estado Civil:</label><br>
-                                <input name="txtEstCivil" id="txtEstCivil" type="text" pattern="[A-Za-z9-0]"class="form-control">
+                                <input name="txtEstCivil" id="txtEstCivil" type="text" value= <?php echo $_SESSION['estado'];?> pattern="[A-Za-z9-0]"class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                                <input type="file" name="archivo[]" id="archivo[]" multiple=""class="btn btn-info btn-md">
+                                <input type="file" value= <?php echo $_SESSION['foto'];?>name="archivo[]" id="archivo[]" multiple=""class="btn btn-info btn-md">
                                 <br>
                                 <br>
                             </div>
