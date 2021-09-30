@@ -102,18 +102,19 @@
         require "conexion.php";
         $IDU=$_SESSION['id'];
         $sentencia=$conexion->prepare("UPDATE `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=? WHERE `ID_USUARIO`=?");
-        $sentencia->bind_param('ssssiss',$Nombre1,$Apellido1,$Fecha1,$Foto1,$Hijos1,$Color1,$IDU);
+        $sentencia->bind_param('sssssis',$Nombre1,$Apellido1,$Correo1,$Direccion1,$Estado1,$Hijos1,$Foto1);
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
             $_SESSION['nombre']=$Nombre1;
-            $_SESSION['apellido']=$Apellido1;
-            $_SESSION['fecha']=$Fecha1;
+            $_SESSION['apellidos']=$Apellido1;
+            $_SESSION['correo']=$Correo1;
+            $_SESSION['direccion']=$Direccion1;
+            $_SESSION['hijos']=$Estado1;
+            $_SESSION['estado']=$Hijos1;
             $_SESSION['foto']=$Foto1;
-            $_SESSION['hijos']=$Hijos1;
-            $_SESSION['color']=$Color1;
             echo "<script>alert('Cambio realizado');
-            window.location='index.php';
+            window.location='principal.php';
             </script>";
         }else{
             echo "<script>alert('No se pudo realizar el cambio');

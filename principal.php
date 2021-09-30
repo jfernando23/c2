@@ -456,9 +456,9 @@
         <div class="row" data-aos="fade-in">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="" method="post" role="form" class="php-email-form" enctype="multipart/form-data">
               
-            <h3 class="text-center text-info">Mis Datos</h3>
+              <h3 class="text-center text-info">Mis Datos</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Nombres:</label><br>
                                 <input name="txtNombre" id="txtNombre" type="text" value= <?php echo $_SESSION['nombre'];?> pattern="[A-Za-z9-0]" class="form-control">
