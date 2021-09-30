@@ -3,8 +3,64 @@
 
   $img = $_SESSION['foto'];
 
+  session_start();
+  include_once "libs/crud.php";
+  require "limpiar.php";
+  if (isset($_SESSION['color'])) {
+      $color=$_SESSION['color'];
+  }else {
+      $color = '#FFFFFF';
+  }
+  if (isset($_POST['btnActualizar'])) {
+      if (isset($_FILES['archivo'] ['tmp_name'])) {
+        foreach ($_FILES['archivo'] ['tmp_name']as $key => $value) {
+    
+          if ($_FILES['archivo'] ['name'] [$key]){
+      
+              $filename = $_FILES['archivo'] ['name'] [$key];
+              $temporal = $_FILES['archivo'] ['tmp_name'] [$key];
+      
+              $directorio = "archivos/";
+      
+              if (!file_exists($directorio)) {
+                  mkdir($directorio, 0777);
+              }
+      
+              $dir = opendir($directorio);
+              $ruta = $directorio.'/'.$filename;
+      
+              if (move_uploaded_file($temporal, $ruta)) {
+                  echo "El archivo $filename se ha almacenado correctamente";
+              } else {
+                  echo "Ha ocurrido un error";
+              }
+              closedir($dir);
+        }
+      }
+      }else{
+          echo "<script>alert('No se pudo cargar archivo');
+          window.location='Cambiardatos.php';
+          </script>";
+      }
 
+      if (isset($_SESSION['nombre'])) {
+          
+          $Nombre1 = LimpiarCadena($_POST ['txtNombre']);
+          $Apellido1 = LimpiarCadena($_POST ['txtApellido']);
+          $Correo1 = LimpiarCadena($_POST ['txtCorreo']);
+          $Direccion1 = LimpiarCadena($_POST ['txtDir']);
+          $Hijos1 = LimpiarCadena($_POST ['txtNumHij']);
+          $Estado1 = LimpiarCadena($_POST ['txtEstCivil']);
+          $Foto1 = $filename;
+          cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Estado1,$Hijos1,$Foto1);
+      }else{
+          header('location: index.php');
+          exit();
+      }
+  }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
