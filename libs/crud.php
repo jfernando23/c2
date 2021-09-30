@@ -98,10 +98,10 @@
         </script>";
         }  
     }
-    function cambiard($Nombre1,$Apellido1,$Fecha1,$Foto1,$Hijos1,$Color1){
+    function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Estado1,$Hijos1,$Foto1){
         require "conexion.php";
         $IDU=$_SESSION['id'];
-        $sentencia=$conexion->prepare("UPDATE `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `FECHA`=?, `FOTO`=?, `CANTIDAD_HIJOS`=?, `COLOR`=? WHERE `ID_USUARIO`=?");
+        $sentencia=$conexion->prepare("UPDATE `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=? WHERE `ID_USUARIO`=?");
         $sentencia->bind_param('ssssiss',$Nombre1,$Apellido1,$Fecha1,$Foto1,$Hijos1,$Color1,$IDU);
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
