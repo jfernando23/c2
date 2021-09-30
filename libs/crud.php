@@ -98,11 +98,12 @@
         </script>";
         }  
     }
-    function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Estado1,$Hijos1,$Foto1){
+    function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1){
         require "conexion.php";
         $IDU=$_SESSION['id'];
+        echo $IDU;
         $sentencia=$conexion->prepare("UPDATE `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=? WHERE `ID_USUARIO`=?");
-        $sentencia->bind_param('sssssis',$Nombre1,$Apellido1,$Correo1,$Direccion1,$Estado1,$Hijos1,$Foto1);
+        $sentencia->bind_param('ssssissi',$Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1,$IDU);
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
@@ -110,12 +111,12 @@
             $_SESSION['apellidos']=$Apellido1;
             $_SESSION['correo']=$Correo1;
             $_SESSION['direccion']=$Direccion1;
-            $_SESSION['hijos']=$Estado1;
-            $_SESSION['estado']=$Hijos1;
+            $_SESSION['hijos']=$Hijos1;
+            $_SESSION['estado']=$Estado1;
             $_SESSION['foto']=$Foto1;
-            echo "<script>alert('Cambio realizado');
-            window.location='principal.php';
-            </script>";
+            //echo "<script>alert('Cambio realizado');
+            //window.location='principal.php';
+            //</script>";
         }else{
             echo "<script>alert('No se pudo realizar el cambio');
             </script>";
@@ -159,4 +160,3 @@
         $sentencia->close();
         $conexion->close();    
     }
-?>

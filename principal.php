@@ -1,67 +1,56 @@
 <?php
-  session_start();
+session_start();
+$img = $_SESSION['foto'];
+include_once "libs/crud.php";
+require "limpiar.php";
+if (isset($_POST['btnActualizar'])) {
+  if (isset($_FILES['archivo']['tmp_name'])) {
+    foreach ($_FILES['archivo']['tmp_name'] as $key => $value) {
 
-  $img = $_SESSION['foto'];
+      if ($_FILES['archivo']['name'][$key]) {
 
-  session_start();
-  include_once "libs/crud.php";
-  require "limpiar.php";
-  if (isset($_SESSION['color'])) {
-      $color=$_SESSION['color'];
-  }else {
-      $color = '#FFFFFF';
-  }
-  if (isset($_POST['btnActualizar'])) {
-      if (isset($_FILES['archivo'] ['tmp_name'])) {
-        foreach ($_FILES['archivo'] ['tmp_name']as $key => $value) {
-    
-          if ($_FILES['archivo'] ['name'] [$key]){
-      
-              $filename = $_FILES['archivo'] ['name'] [$key];
-              $temporal = $_FILES['archivo'] ['tmp_name'] [$key];
-      
-              $directorio = "archivos/";
-      
-              if (!file_exists($directorio)) {
-                  mkdir($directorio, 0777);
-              }
-      
-              $dir = opendir($directorio);
-              $ruta = $directorio.'/'.$filename;
-      
-              if (move_uploaded_file($temporal, $ruta)) {
-                  echo "El archivo $filename se ha almacenado correctamente";
-              } else {
-                  echo "Ha ocurrido un error";
-              }
-              closedir($dir);
+        $filename = $_FILES['archivo']['name'][$key];
+        $temporal = $_FILES['archivo']['tmp_name'][$key];
+
+        $directorio = "archivos/";
+
+        if (!file_exists($directorio)) {
+          mkdir($directorio, 0777);
         }
+
+        $dir = opendir($directorio);
+        $ruta = $directorio . '/' . $filename;
+
+        if (move_uploaded_file($temporal, $ruta)) {
+          //echo "El archivo $filename se ha almacenado correctamente";
+        } else {
+          //echo "Ha ocurrido un error";
+        }
+        closedir($dir);
       }
-      }else{
-          echo "<script>alert('No se pudo cargar archivo');
-          window.location='Cambiardatos.php';
+    }
+  } else {
+    echo "<script>alert('No se pudo cargar archivo');
+          window.location='registro.php';
           </script>";
-      }
-
-      if (isset($_SESSION['nombre'])) {
-          
-          $Nombre1 = LimpiarCadena($_POST ['txtNombre']);
-          $Apellido1 = LimpiarCadena($_POST ['txtApellido']);
-          $Correo1 = LimpiarCadena($_POST ['txtCorreo']);
-          $Direccion1 = LimpiarCadena($_POST ['txtDir']);
-          $Hijos1 = LimpiarCadena($_POST ['txtNumHij']);
-          $Estado1 = LimpiarCadena($_POST ['txtEstCivil']);
-          $Foto1 = $filename;
-          cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Estado1,$Hijos1,$Foto1);
-      }else{
-          header('location: index.php');
-          exit();
-      }
   }
+
+  if (isset($_SESSION['nombre'])) {
+
+    $Nombre1 = LimpiarCadena($_POST['txtNombre']);
+    $Apellido1 = LimpiarCadena($_POST['txtApellidos']);
+    $Correo1 = LimpiarCadena($_POST['txtCorreo']);
+    $Direccion1 = LimpiarCadena($_POST['txtDir']);
+    $Hijos1 = LimpiarCadena($_POST['txtNumHij']);
+    $Estado1 = LimpiarCadena($_POST['txtEstCivil']);
+    $Foto1 = $filename;
+    cambiard($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Estado1, $Foto1);
+  } else {
+    header('location: principal.php');
+    exit();
+  }
+}
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,8 +98,8 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <?php echo "<img src='archivos/$img'".'</div><br>';?>
-        <h1 class="text-light"><a href="index.html"><?php echo $_SESSION['nombre']. " " .$_SESSION['apellidos'];?></a></h1>
+        <?php echo "<img src='archivos/$img'" . '</div><br>'; ?>
+        <h1 class="text-light"><a href="index.html"><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos']; ?></a></h1>
       </div>
 
       <nav id="navbar" class="nav-menu navbar">
@@ -127,8 +116,8 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
-      <h1><?php echo $_SESSION['nombre']. " " .$_SESSION['apellidos'];?></h1>
-      <p>Yo estoy <span class="typed" data-typed-items=<?php echo $_SESSION['estado'];?>></span></p>
+      <h1><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos']; ?></h1>
+      <p>Yo estoy <span class="typed" data-typed-items=<?php echo $_SESSION['estado']; ?>></span></p>
     </div>
   </section><!-- End Hero -->
 
@@ -456,43 +445,43 @@
         <div class="row" data-aos="fade-in">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              
-            <h3 class="text-center text-info">Mis Datos</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">Nombres:</label><br>
-                                <input name="txtNombre" id="txtNombre" type="text" value= <?php echo $_SESSION['nombre'];?> pattern="[A-Za-z9-0]" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Apellidos:</label><br>
-                                <input name="txtApellidos" id="txtApellidos" type="text" value= <?php echo $_SESSION['apellidos'];?> pattern="[A-Za-z9-0]"class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Correo:</label><br>
-                                <input name="txtCorreo" id="txtCorreo" type="text" value= <?php echo $_SESSION['correo'];?> pattern="[A-Za-z9-0]"class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Dirección:</label><br>
-                                <input name="txtDir" id="txtDir" type="text" value=<?php echo $_SESSION['direccion'];?> pattern="[A-Za-z9-0]"class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Numero de Hijos:</label><br>
-                                <input name="txtNumHij" id="txtNumHij" type="text" value= <?php echo $_SESSION['hijos'];?> pattern="[A-Za-z9-0]"class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Estado Civil:</label><br>
-                                <input name="txtEstCivil" id="txtEstCivil" type="text" value= <?php echo $_SESSION['estado'];?> pattern="[A-Za-z9-0]"class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                                <input type="file" value= <?php echo $_SESSION['foto'];?>name="archivo[]" id="archivo[]" multiple=""class="btn btn-info btn-md">
-                                <br>
-                                <br>
-                            </div>
-                            <div class="form-group" >
-                                <input type="submit" name="btnActualizar" value="Actualizar" class="btn btn-info btn-md">
-                                <input type="submit" name="btnCambio" value="Cambiar Clave" class="btn btn-info btn-md">
-                            </div>
+            <form id="login-form" class="form" action="" method="post" enctype="multipart/form-data">
+
+              <h3 class="text-center text-info">Mis Datos</h3>
+              <div class="form-group">
+                <label for="username" class="text-info">Nombres:</label><br>
+                <input name="txtNombre" id="txtNombre" type="text" value=<?php echo $_SESSION['nombre']; ?> pattern="[A-Za-z9-0]" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Apellidos:</label><br>
+                <input name="txtApellidos" id="txtApellidos" type="text" value=<?php echo $_SESSION['apellidos']; ?> pattern="[A-Za-z9-0]" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Correo:</label><br>
+                <input name="txtCorreo" id="txtCorreo" type="text" value=<?php echo $_SESSION['correo']; ?> pattern="[A-Za-z9-0]" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Dirección:</label><br>
+                <input name="txtDir" id="txtDir" type="text" value=<?php echo $_SESSION['direccion']; ?> pattern="[A-Za-z9-0]" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Numero de Hijos:</label><br>
+                <input name="txtNumHij" id="txtNumHij" type="text" value=<?php echo $_SESSION['hijos']; ?> pattern="[A-Za-z9-0]" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Estado Civil:</label><br>
+                <input name="txtEstCivil" id="txtEstCivil" type="text" value=<?php echo $_SESSION['estado']; ?> pattern="[A-Za-z9-0]" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password" class="text-info">Foto de Pérfil:</label><br>
+                <input type="file" value=<?php echo $_SESSION['foto']; ?> name="archivo[]" id="archivo[]" multiple="">
+                <br>
+                <br>
+              </div>
+              <div class="form-group">
+                <input type="submit" name="btnActualizar" value="Actualizar" class="btn btn-info btn-md">
+                <input type="submit" name="btnCambio" value="Cambiar Clave" class="btn btn-info btn-md">
+              </div>
             </form>
           </div>
 
@@ -535,4 +524,5 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 </body>
+
 </html>
