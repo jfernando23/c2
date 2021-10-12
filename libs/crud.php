@@ -68,10 +68,11 @@
         $sentencia->close();
         $conexion->close();
     }
+
     function mostrar(){
         require "conexion.php";
         
-        $sentencia=$conexion->prepare("SELECT * FROM `tuits`");
+        $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.FOTO, T.TUIT, T.FECHA FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO ORDER BY T.FECHA DESC");
         $sentencia->execute();
         $resultado = $sentencia->get_result();
         return $resultado;
