@@ -445,7 +445,7 @@ if (isset($_POST['btnActualizar'])) {
         <div class="row" data-aos="fade-in">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
 
-            <form id="login-form" class="form" action="" method="post" enctype="multipart/form-data">
+            <form class="form" action="" method="post" enctype="multipart/form-data">
 
               <h3 class="text-center text-info">Mis Datos</h3>
               <div class="form-group">
@@ -474,7 +474,7 @@ if (isset($_POST['btnActualizar'])) {
               </div>
               <div class="form-group">
                 <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                <input type="file" value=<?php echo $_SESSION['foto']; ?> name="archivo[]" id="archivo[]" multiple="">
+                <input type="file" value=<?php echo $_SESSION['foto']; ?> name="archivo[]" id="archivo[]" multiple="" class="btn btn-info btn-md">
                 <br>
                 <br>
               </div>

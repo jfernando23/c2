@@ -114,9 +114,9 @@
             $_SESSION['hijos']=$Hijos1;
             $_SESSION['estado']=$Estado1;
             $_SESSION['foto']=$Foto1;
-            //echo "<script>alert('Cambio realizado');
-            //window.location='principal.php';
-            //</script>";
+            echo "<script>alert('Cambio realizado');
+            window.location='principal.php';
+            </script>";
         }else{
             echo "<script>alert('No se pudo realizar el cambio');
             </script>";
