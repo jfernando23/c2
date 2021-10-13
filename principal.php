@@ -34,7 +34,7 @@ if (isset($_POST['btnActualizar'])) {
           window.location='registro.php';
           </script>";
   }
-  
+
 
   if (isset($_SESSION['nombre'])) {
 
@@ -50,6 +50,18 @@ if (isset($_POST['btnActualizar'])) {
     header('location: principal.php');
     exit();
   }
+}
+if (isset($_POST['btnCrear'])) {
+  if(isset($_POST['chkPublico'])){
+    $idt = LimpiarCadena($_POST['txtMensaje']);
+    $idu = $_SESSION['id'];
+    tuit($idu, $idt,'Sí');
+  }else{
+    $idt = LimpiarCadena($_POST['txtMensaje']);
+    $idu = $_SESSION['id'];
+    tuit($idu, $idt,'No');
+  }
+  
 }
 if (isset($_POST['btnBorrar_1'])) {
   $idt = $_POST['btnBorrar_1'];
@@ -209,7 +221,8 @@ $resultado2 = mostrarid($_SESSION['id']);
                         <div class="table-responsive">
                           <table class="table table-hover table-striped">
                             <tbody>
-                              <?php $resultado2 = mostrarid($_SESSION['id']); while ($fila2 = $resultado2->fetch_assoc()) { ?>
+                              <?php $resultado2 = mostrarid($_SESSION['id']);
+                              while ($fila2 = $resultado2->fetch_assoc()) { ?>
                                 <tr>
                                   <td>
                                     <div class="media">
@@ -255,9 +268,24 @@ $resultado2 = mostrarid($_SESSION['id']);
                     <div class="row">
                       <div class="col-md-12">
                         <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span></h5>
-                        <div class="table-responsive">
-                          
-                        </div>
+                            <form class="form" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
+
+                              <h3 class="text-center text-info">Crear Artículo</h3>
+                              <div class="form-group">
+                                <label for="username" class="text-info">Artículo</label><br>
+                                <input name="txtMensaje" id="txtMensaje" type="text" value="" pattern="[A-Za-z9-0]" class="form-control">
+                              </div>
+                              <div class="form-check">
+                              <label class="form-check-label" >
+                                  Es púlico
+                                </label>
+                                <input name="chkPublico" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                              </div>
+                              <div class="form-group">
+                                <br>
+                                <input type="submit" name="btnCrear" value="Crear" class="btn btn-info btn-md">
+                              </div>
+                            </form>  
                       </div>
                     </div>
                   </div>
@@ -268,7 +296,6 @@ $resultado2 = mostrarid($_SESSION['id']);
               <footer class="footer">
                 <div class="container">
                   <div class="text-center">
-
                   </div>
                 </div>
               </footer>

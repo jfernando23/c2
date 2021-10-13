@@ -59,11 +59,11 @@
         $sentencia->close();
         $conexion->close();
     }
-    function tuit($id,$tuit){
+    function tuit($id,$tuit,$publico){
         require "conexion.php";
         
-        $sentencia=$conexion->prepare("INSERT INTO `tuits` SET `ID_USUARIO`=?, `TUIT`=?");
-        $sentencia->bind_param('is',$id,$tuit);
+        $sentencia=$conexion->prepare("INSERT INTO `tuits` SET `ID_USUARIO`=?, `TUIT`=?, `PUBLICO`=?");
+        $sentencia->bind_param('iss',$id,$tuit,$publico);
         $sentencia->execute();
         $sentencia->close();
         $conexion->close();
