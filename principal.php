@@ -34,6 +34,7 @@ if (isset($_POST['btnActualizar'])) {
           window.location='registro.php';
           </script>";
   }
+  
 
   if (isset($_SESSION['nombre'])) {
 
@@ -50,7 +51,23 @@ if (isset($_POST['btnActualizar'])) {
     exit();
   }
 }
+if (isset($_POST['btnBorrar_1'])) {
+  $idt = $_POST['btnBorrar_1'];
+  $idu = $_SESSION['id'];
+  eliminar($idt, $idu);
+}
+if (isset($_POST['btnPublicar_1'])) {
+  $idt = $_POST['btnPublicar_1'];
+  $idu = $_SESSION['id'];
+  publicar($idt, $idu);
+}
+if (isset($_POST['btnDespublicar_1'])) {
+  $idt = $_POST['btnDespublicar_1'];
+  $idu = $_SESSION['id'];
+  despublicar($idt, $idu);
+}
 $resultado = mostrar();
+$resultado2 = mostrarid($_SESSION['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,7 +157,7 @@ $resultado = mostrar();
                   <a href="javascript:void();" name="lnkArticulos" data-target="#profile" data-toggle="pill" class="nav-link active"><i class="zmdi zmdi-male-female"></i> <span class="hidden-xs">Todos los artículos</span></a>
                 </li>
                 <li class="nav-item">
-                  <a href="javascript:void();" name="lnkMisArticulos" data-target="#messages" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-account-calendar"></i> <span class="hidden-xs">Mi artículo</span></a>
+                  <a href="javascript:void();" name="lnkMisArticulos" data-target="#messages" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-account-calendar"></i> <span class="hidden-xs">Mis artículo</span></a>
                 </li>
                 <li class="nav-item">
                   <a href="javascript:void();" name="lnkCrearArticulos" data-target="#edit" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-mood-bad"></i> <span class="hidden-xs">Crear artículo</span></a>
@@ -160,27 +177,25 @@ $resultado = mostrar();
                                 <tr>
                                   <td>
                                     <div class="media">
-                                    <?php $FOTO = $fila['FOTO']; ?>
+                                      <?php $FOTO = $fila['FOTO']; ?>
                                       <div class="profile">
-                                        <h1 class="text-light"><a name="lblAutor_1" ><?php echo $fila['NOMBRE']; ?></a></h1>
+                                        <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $fila['NOMBRE']; ?></a></h1>
                                         <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO'" . '</div><br>'; ?>
-                                        
                                       </div>
                                     </div>
                                   </td>
                                   <td>
                                     <div class="media">
-                                    <div class="media-body">
-                                      <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $fila['TUIT']; ?></h6>
-                                    </div>
-                                    <div class="media-body">
-                                      <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $fila['FECHA']; ?></h6>
-                                    </div>
+                                      <div class="media-body">
+                                        <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $fila['TUIT']; ?></h6>
+                                      </div>
+                                      <div class="media-body">
+                                        <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $fila['FECHA']; ?></h6>
+                                      </div>
                                     </div>
                                   </td>
-                                <?php } ?>
                                 </tr>
-
+                              <?php } ?>
                             </tbody>
                           </table>
                         </div>
@@ -194,157 +209,42 @@ $resultado = mostrar();
                         <div class="table-responsive">
                           <table class="table table-hover table-striped">
                             <tbody>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o1.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Organízate, tener al día los materiales de estudio y llevar una agenda ayuda bastante a tener más organizados tus horarios y entregas.</h6>
+                              <?php $resultado2 = mostrarid($_SESSION['id']); while ($fila2 = $resultado2->fetch_assoc()) { ?>
+                                <tr>
+                                  <td>
+                                    <div class="media">
+                                      <?php $FOTO = $fila2['FOTO']; ?>
+                                      <div class="profile">
+                                        <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold">Artículo:</a></h1>
+                                        <h1 name="lblAutor_1"><a class="lead">Es público: <?php echo $fila2['PUBLICO']; ?> </a></h1>
+                                      </div>
                                     </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o2.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Clasificar las materias de acuerdo con el nivel de dificultad también de acuerdo con fechas pautadas para entregas y pruebas.</h6>
+                                  </td>
+                                  <td>
+                                    <div class="media">
+                                      <div class="media-body">
+                                        <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $fila2['TUIT']; ?></h6>
+                                      </div>
+                                      <div class="media-body">
+                                        <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $fila2['FECHA']; ?></h6>
+                                      </div>
                                     </div>
-                                  </div>
+                                <tr>
+                                  <td colspan="3" style="text-align:center;">
+                                    <form class="form" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
+                                      <div class="form-group">
+                                        <button type="submit" name="btnPublicar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Publicar</button>
+                                        <button type="submit" name="btnDespublicar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Despublicar</button>
+                                        <button type="submit" name="btnBorrar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Borrar</button>
+                                      </div>
+                                    </form>
+
+                                  </td>
+                                </tr>
                                 </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o3.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Estudia gradualmente para llegar más preparado a una prueba.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o4.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Prueba con distintos métodos de estudio.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o5.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Elimina las distracciones: Internet, celular, televisión, radio.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/06.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Tener un calendario permite hacerse una idea de cuánto tiempo queda antes de enfrentarse a una prueba o entrega de un trabajo.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o7.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Crear una rutina de estudio, es muy importante establecer una rutina de estudio, preferiblemente diaria. Cada uno tiene su propio ritmo, <br>hay personas más productivas por la mañana mientras que otras lo son hacia la tarde o noche.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o8.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Priorizar objetivos y evitar la multitarea, hay tareas que deben ser cumplidas antes que otras, y por ello se les debe dar mayor prioridad.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o9.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Planificar pausas activas, estudiar está bien, pero hacerlo de forma constante lleva al inevitable agotamiento. Todo el mundo necesita <br>
-                                        descansar divirtiéndose.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o10.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">La actitud con la que se afronta el estudio es algo fundamental si se quiere tener éxito.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o11.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">La motivación a la hora de estudiar y la fuerza de voluntad son aspectos que influyen en nuestra forma de aprender.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/06.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Planificar con antelación, solo se tendrá éxito si se está bien preparado, y es por ello tan importante planificar con antelación la sesión de estudio.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o12.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Ir de materias más complejas a las más simples, lo mejor que se puede hacer es dejar lo difícil para el inicio del día.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o13.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Asegurarse de tener el móvil en silencio o, mejor, apagado, para evitar interrupciones.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/o14.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Que los ratos de estudio no superen los 30 minutos, mostramos más facilidad para asimilar información que nos llega en ráfagas cortas y repetidas.</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
+
+                                </tr>
+                              <?php } ?>
                             </tbody>
                           </table>
                         </div>
@@ -356,302 +256,9 @@ $resultado = mostrar();
                       <div class="col-md-12">
                         <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span></h5>
                         <div class="table-responsive">
-                          <table class="table table-hover table-striped">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Puedes ser feliz allí donde estés - Joel Osteen</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Tus acciones positivas combinadas con los pensamientos positivos generan éxitos - Shiv Khera </h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Tus acciones positivas combinadas con los pensamientos positivos generan éxitos - Shiv Khera </h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Si puedes soñarlo, puedes hacerlo - Walt Disney</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">El secreto para salir adelante es comenzar - Mark Twain</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">El conocimiento es poder - Francis Bacon</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">El 80% del éxito se basa simplemente en insistir - Woody Allen</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Si tienes un sueño y crees en él, corres el riesgo de que se convierta en realidad - Walt Disney</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Hoy eres un lector y mañana serás un líder - Margaret Fuller</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Los dos guerreros más poderosos son la paciencia y el tiempo - León Tolstói</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Apunta a la luna. Si fallas, podrías dar a una estrella - William Clement Stone</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">La forma más rápida de cambiar es convivir con personas que ya son como quieres ser - Reid Hoffman</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">Vive la vida que amas. Ama la vida que vives - Bob Marley</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">El éxito no es la clave de la felicidad. La felicidad es la clave del éxito - Albert Schweitzer</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3" width="60" height="60" src="assets/images/img/m.png" alt="user avatar"></div>
-                                    <div class="media-body">
-                                      <h6 class="mt-3 user-title">La grandeza nace de pequeños comienzos - Sir Francis Drake</h6>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="Prueba">
-
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <center>
-                                        <div>
-                                          <img width="300" height="300" src="assets/images/diez.jpg" alt="Imagen centrada" />
-                                        </div>
-                                      </center>
-                                    </tr>
-                                    <tr>
-                                      <p></p>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <center>
-                                        <div>
-                                          <img width="300" height="300" src="assets/images/dos.jpg" alt="Imagen centrada" />
-                                        </div>
-                                      </center>
-                                    </tr>
-                                    <tr>
-                                      <p></p>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <center>
-                                        <div>
-                                          <img width="300" height="300" src="assets/images/tres.jpg" alt="Imagen centrada" />
-                                        </div>
-                                      </center>
-                                    </tr>
-                                    <tr>
-                                      <p></p>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <center>
-                                        <div>
-                                          <img width="300" height="300" src="assets/images/cuatro.jpg" alt="Imagen centrada" />
-                                        </div>
-                                      </center>
-                                    </tr>
-                                    <tr>
-                                      <p></p>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <center>
-                                        <div>
-                                          <img width="300" height="300" src="assets/images/cinco.jpg" alt="Imagen centrada" />
-                                        </div>
-                                      </center>
-                                    </tr>
-                                    <tr>
-                                      <p></p>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <center>
-                                        <div>
-                                          <img width="300" height="300" src="assets/images/seis.jpg" alt="Imagen centrada" />
-                                        </div>
-                                      </center>
-                                    </tr>
-                                    <tr>
-                                      <p></p>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="overlay toggle-menu"></div>
                     </div>
                   </div>
                   <div class="overlay toggle-menu"></div>

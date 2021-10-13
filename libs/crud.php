@@ -72,7 +72,16 @@
     function mostrar(){
         require "conexion.php";
         
-        $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.FOTO, T.TUIT, T.FECHA FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO ORDER BY T.FECHA DESC");
+        $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.FOTO, T.TUIT, T.FECHA FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO WHERE T.PUBLICO = 'Sí' ORDER BY T.FECHA DESC");
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        return $resultado;
+    }
+    function mostrarid($id){
+        require "conexion.php";
+        
+        $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.FOTO, T.ID_TUIT, T.TUIT, T.FECHA, T.PUBLICO FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO WHERE T.ID_USUARIO = ? ORDER BY T.FECHA DESC");
+        $sentencia->bind_param('i',$id);
         $sentencia->execute();
         $resultado = $sentencia->get_result();
         return $resultado;
@@ -87,6 +96,50 @@
         $id = $fila['ID_USUARIO'];
         if ($id == $idu) {
             $sentencia=$conexion->prepare("DELETE FROM `tuits` WHERE ID_TUIT =?");
+            $sentencia->bind_param('i',$idt);
+            $sentencia->execute();
+            $resultado = $sentencia->get_result();
+        }else {
+            echo "<script>alert('No se puede eliminar');
+            </script>";
+        }
+        }else{
+        echo "<script>alert('No existe el tuit');
+        </script>";
+        }  
+    }
+    function publicar($idt,$idu){
+        require "conexion.php";
+        $sentencia=$conexion->prepare("SELECT * FROM `tuits` WHERE ID_TUIT=?");
+        $sentencia->bind_param('i',$idt);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        if ($fila = $resultado->fetch_assoc()) {
+        $id = $fila['ID_USUARIO'];
+        if ($id == $idu) {
+            $sentencia=$conexion->prepare("UPDATE `tuits` SET `PUBLICO`='Sí' WHERE ID_TUIT = ?");
+            $sentencia->bind_param('i',$idt);
+            $sentencia->execute();
+            $resultado = $sentencia->get_result();
+        }else {
+            echo "<script>alert('No se puede eliminar');
+            </script>";
+        }
+        }else{
+        echo "<script>alert('No existe el tuit');
+        </script>";
+        }  
+    }
+    function despublicar($idt,$idu){
+        require "conexion.php";
+        $sentencia=$conexion->prepare("SELECT * FROM `tuits` WHERE ID_TUIT=?");
+        $sentencia->bind_param('i',$idt);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        if ($fila = $resultado->fetch_assoc()) {
+        $id = $fila['ID_USUARIO'];
+        if ($id == $idu) {
+            $sentencia=$conexion->prepare("UPDATE `tuits` SET `PUBLICO`='No' WHERE ID_TUIT = ?");
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
