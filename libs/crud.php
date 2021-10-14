@@ -69,10 +69,19 @@
         $conexion->close();
     }
 
+
     function mostrar(){
         require "conexion.php";
         
-        $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.FOTO, T.TUIT, T.FECHA FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO WHERE T.PUBLICO = 'Sí' ORDER BY T.FECHA DESC");
+        $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.APELLIDO, U.FOTO, T.TUIT, T.FECHA FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO WHERE T.PUBLICO = 'Sí' ORDER BY T.FECHA DESC");
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        return $resultado;
+    }
+    function mostrarusu(){
+        require "conexion.php";
+        
+        $sentencia=$conexion->prepare("SELECT ID_USUARIO, NOMBRE, APELLIDO FROM `usuarios`");
         $sentencia->execute();
         $resultado = $sentencia->get_result();
         return $resultado;
@@ -214,3 +223,4 @@
         $sentencia->close();
         $conexion->close();    
     }
+?>
