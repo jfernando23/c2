@@ -2,14 +2,14 @@
     session_start();
     require "limpiar.php";
     include_once "libs/crud.php";
-    
-    if (isset($_SESSION['usuarios']) == FALSE) {
-        $_SESSION['usuarios'] = [];
-    }
+   
     if (isset($_POST['btnIngresar'])) {
         $usuario = LimpiarCadena($_POST['txtUsuario']);
         $contrasena = hash("sha512",LimpiarCadena($_POST['txtClave']));
         login($usuario,$contrasena);
+    }
+    if (isset($_POST['btnRegistrar'])) {
+        header("location:registro.php");
     }
 ?>
 <html>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group" >
                                 <input type="submit" name="btnIngresar" value="Ingresar"class="btn btn-info btn-md">
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Registrar">
+                                <input type="submit" name="btnRegistrar" class="btn btn-info btn-md" value="Registrar">
                             </div>
                         </form>
                     </div>
@@ -54,4 +54,5 @@
             </div>
         </div>
     </div>
+    <script src="assets2/js/noreenvio.js"></script>
 </html>

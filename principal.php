@@ -3,6 +3,9 @@ session_start();
 $img = $_SESSION['foto'];
 include_once "libs/crud.php";
 require "limpiar.php";
+if (!isset($_SESSION['id'])) {
+  header("location:index.php");
+}
 if (isset($_POST['btnActualizar'])) {
   if (isset($_FILES['archivo']['tmp_name'])) {
     foreach ($_FILES['archivo']['tmp_name'] as $key => $value) {
@@ -127,6 +130,7 @@ $resultado = mostrar();
 $resultado2 = mostrarid($_SESSION['id']);
 $usu = mostrarusu();
 $mensa = mostrarmensajes($_SESSION['id']);
+$mensajem = mostrarmensajesen($_SESSION['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,7 +139,7 @@ $mensa = mostrarmensajes($_SESSION['id']);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>iPortfolio Bootstrap Template - Index</title>
+  <title>Mensajes</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -185,6 +189,7 @@ $mensa = mostrarmensajes($_SESSION['id']);
           <li><a name="lnkArticulos" id="lnkArticulos" href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Artículos</span></a></li>
           <li><a name="lnkMensajes" id="lnkMensajes" href="#resume" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Ver Mensajes</span></a></li>
           <li><a name="lnkPerfil" id="lnkPerfil" href="#contact" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Mi Pérfil</span></a></li>
+          <li><a name="lnkSalir" id="lnkSalir" href="cerrar.php" class="nav-link scrollto"><i class="bi bi-power"></i> <span>Salir</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
     </div>
@@ -193,11 +198,11 @@ $mensa = mostrarmensajes($_SESSION['id']);
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
-      <h1><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos']; ?></h1>
-      <p>Yo estoy <span class="typed" data-typed-items=<?php echo $_SESSION['estado']; ?>></span></p>
+      <h1> </h1>
+      <p> Hola de nuevo <span class="typed" data-typed-items=" <?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos']; ?>"></span></p>
     </div>
-  </section><!-- End Hero -->
-
+  </section>
+  <!--End Hero -->
   <main id="main">
     <!-- ======= Artículos Section ======= -->
     <section id="about" class="about">
@@ -385,7 +390,7 @@ $mensa = mostrarmensajes($_SESSION['id']);
                                   <tr>
                                     <td>
                                       <div class="media">
-                                        <?php $FOTO = $filaM ['FOTO']; ?>
+                                        <?php $FOTO = $filaM['FOTO']; ?>
                                         <div class="profile">
                                           <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filaM['ORIGEN']; ?></a></h1>
                                           <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO'" . '</div><br>'; ?>
@@ -401,12 +406,12 @@ $mensa = mostrarmensajes($_SESSION['id']);
                                           <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $filaM['FECHA']; ?></h6>
                                         </div>
                                       </div>
-                                      <tr>
-                                  <td colspan="3" style="text-align:center;">
-                                  <?php echo "<a href='archivos/$FOTO' download>$FOTO</a>" ;?>
-                                  </td>
-                                </tr>
+                                  <tr>
+                                    <td colspan="3" style="text-align:center;">
+                                      <?php echo "<a href='archivos/$FOTO' download>$FOTO</a>"; ?>
                                     </td>
+                                  </tr>
+                                  </td>
                                   </tr>
                                 <?php } ?>
                               </tbody>
@@ -416,7 +421,45 @@ $mensa = mostrarmensajes($_SESSION['id']);
                       </div>
                     </div>
                     <div class="tab-pane" id="Mensajese">
-
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span></h5>
+                          <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                              <tbody>
+                                <?php while ($filamio = $mensajem->fetch_assoc()) { ?>
+                                  <tr>
+                                    <td>
+                                      <div class="media">
+                                        <?php $FOTO2 = $filamio['FOTO']; ?>
+                                        <div class="profile">
+                                          <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filamio['DESTINO']; ?></a></h1>
+                                          <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO2'" . '</div><br>'; ?>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="media">
+                                        <div class="media-body">
+                                          <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $filamio['MENSAJE']; ?></h6>
+                                        </div>
+                                        <div class="media-body">
+                                          <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $filamio['FECHA']; ?></h6>
+                                        </div>
+                                      </div>
+                                  <tr>
+                                    <td colspan="3" style="text-align:center;">
+                                      <?php echo "<a href='archivos/$FOTO2' download>$FOTO2</a>"; ?>
+                                    </td>
+                                  </tr>
+                                  </td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="tab-pane" id="Crearm">
                       <div class="row">
@@ -470,53 +513,53 @@ $mensa = mostrarmensajes($_SESSION['id']);
         <div class="section-title">
           <h2>Mi Pérfil</h2>
         </div>
-
-        <div class="row" data-aos="fade-in">
-          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-
-            <form class="form" action="" method="post" enctype="multipart/form-data">
-              <h2>Mi Pérfil</h2>
-              <h3 class="text-center text-info">Mis Datos</h3>
-              <div class="form-group">
-                <label for="username" class="text-info">Nombres:</label><br>
-                <input name="txtNombre" id="txtNombre" type="text" value=<?php echo $_SESSION['nombre']; ?> pattern="[A-Za-z9-0]" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Apellidos:</label><br>
-                <input name="txtApellidos" id="txtApellidos" type="text" value=<?php echo $_SESSION['apellidos']; ?> pattern="[A-Za-z9-0]" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Correo:</label><br>
-                <input name="txtCorreo" id="txtCorreo" type="text" value=<?php echo $_SESSION['correo']; ?> pattern="[A-Za-z9-0]" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Dirección:</label><br>
-                <input name="txtDir" id="txtDir" type="text" value=<?php echo $_SESSION['direccion']; ?> pattern="[A-Za-z9-0]" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Numero de Hijos:</label><br>
-                <input name="txtNumHij" id="txtNumHij" type="text" value=<?php echo $_SESSION['hijos']; ?> pattern="[A-Za-z9-0]" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Estado Civil:</label><br>
-                <input name="txtEstCivil" id="txtEstCivil" type="text" value=<?php echo $_SESSION['estado']; ?> pattern="[A-Za-z9-0]" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                <input type="file" value=<?php echo $_SESSION['foto']; ?> name="archivo[]" id="archivo[]" multiple="" class="btn btn-info btn-md">
-                <br>
-                <br>
-              </div>
-              <div class="form-group">
-                <input type="submit" name="btnActualizar" value="Actualizar" class="btn btn-info btn-md">
-                <input type="submit" name="btnCambio" value="Cambiar Clave" class="btn btn-info btn-md">
-              </div>
-            </form>
+        <div class="mx-auto" style="width: 500px;">
+          <div class="card" style="width: 30rem;">
+            <img class="card-img-top" src="<?php echo "archivos/$img"; ?>" alt="Card image cap">
+            <div class="card-body">
+              <form class="form" action="" method="post" enctype="multipart/form-data">
+                <h3 class="text-center text-info">Mis Datos</h3>
+                <div class="form-group">
+                  <label for="username" class="text-info">Nombres:</label><br>
+                  <input name="txtNombre" id="txtNombre" type="text" value="<?php echo $_SESSION['nombre']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Apellidos:</label><br>
+                  <input name="txtApellidos" id="txtApellidos" type="text" value="<?php echo $_SESSION['apellidos']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Correo:</label><br>
+                  <input name="txtCorreo" id="txtCorreo" type="text" value="<?php echo $_SESSION['correo']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Dirección:</label><br>
+                  <input name="txtDir" id="txtDir" type="text" value="<?php echo $_SESSION['direccion']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Numero de Hijos:</label><br>
+                  <input name="txtNumHij" id="txtNumHij" type="text" value="<?php echo $_SESSION['hijos']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Estado Civil:</label><br>
+                  <input name="txtEstCivil" id="txtEstCivil" type="text" value="<?php echo $_SESSION['estado']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Foto de Pérfil:</label><br>
+                  <input type="file" value="<?php echo $_SESSION['foto']; ?>" name="archivo[]" id="archivo[]" multiple="" class="btn btn-info btn-md">
+                  <br>
+                  <br>
+                </div>
+                <div class="form-group">
+                  <input type="submit" name="btnActualizar" value="Actualizar" class="btn btn-info btn-md">
+                  <input type="submit" name="btnCambio" value="Cambiar Clave" class="btn btn-info btn-md">
+                </div>
+              </form>
+            </div>
           </div>
-
         </div>
 
       </div>
+
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
@@ -537,7 +580,7 @@ $mensa = mostrarmensajes($_SESSION['id']);
 
   <!-- Template Main JS File -->
   <script src="assets2/js/noreenvio.js"></script>
-  <script src="assets2/js/main.js"></script>
+  <script src="assets/js/main.js"></script>
   <script src="assets2/js/jquery.min.js"></script>
   <script src="assets2/js/popper.min.js"></script>
   <script src="assets2/js/bootstrap.min.js"></script>

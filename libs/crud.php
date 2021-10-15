@@ -109,6 +109,14 @@
         $resultado = $sentencia->get_result();
         return $resultado;
     }
+    function mostrarmensajesen($id){
+        require "conexion.php";
+        $sentencia=$conexion->prepare("SELECT ID_MENSAJE,MENSAJE,U.NOMBRE AS 'DESTINO', O.NOMBRE AS 'ORIGEN',U.FOTO, ARCHIVO, FECHA FROM `mensajes` AS M INNER JOIN usuarios U ON U.ID_USUARIO = M.ID_USUARIOD INNER JOIN usuarios O ON O.ID_USUARIO = M.ID_USUARIOO WHERE ID_USUARIOO = ? ORDER BY `FECHA` DESC");
+        $sentencia->bind_param('i',$id);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        return $resultado;
+    }
     function eliminar($idt,$idu){
         require "conexion.php";
         $sentencia=$conexion->prepare("SELECT * FROM `tuits` WHERE ID_TUIT=?");
@@ -178,7 +186,6 @@
     function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1){
         require "conexion.php";
         $IDU=$_SESSION['id'];
-        echo $IDU;
         $sentencia=$conexion->prepare("UPDATE `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=? WHERE `ID_USUARIO`=?");
         $sentencia->bind_param('ssssissi',$Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1,$IDU);
         $sentencia->execute();

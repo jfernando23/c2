@@ -2,12 +2,6 @@
 session_start();
 include_once "libs/crud.php";
 require "limpiar.php";
-
-
-if (isset($_SESSION['usuarios']) == FALSE) {
-    $_SESSION['usuarios'] = [];
-}
-
 if (isset($_POST['btnRegistrar'])) {
     if (isset($_FILES['archivo']['tmp_name'])) {
         foreach ($_FILES['archivo']['tmp_name'] as $key => $value) {
@@ -122,5 +116,5 @@ if (isset($_POST['btnRegistrar'])) {
         </div>
     </div>
 </div>
-
+<script src="assets2/js/noreenvio.js"></script>
 </html>
