@@ -51,6 +51,52 @@ if (isset($_POST['btnActualizar'])) {
     exit();
   }
 }
+if (isset($_POST['btnEnviar'])) {
+  if (isset($_FILES['archivo']['tmp_name'])) {
+    foreach ($_FILES['archivo']['tmp_name'] as $key => $value) {
+
+      if ($_FILES['archivo']['name'][$key]) {
+
+        $filename = $_FILES['archivo']['name'][$key];
+        $temporal = $_FILES['archivo']['tmp_name'][$key];
+
+        $directorio = "archivos/";
+
+        if (!file_exists($directorio)) {
+          mkdir($directorio, 0777);
+        }
+
+        $dir = opendir($directorio);
+        $ruta = $directorio . '/' . $filename;
+
+        if (move_uploaded_file($temporal, $ruta)) {
+          //echo "El archivo $filename se ha almacenado correctamente";
+        } else {
+          //echo "Ha ocurrido un error";
+        }
+        closedir($dir);
+      }
+    }
+  } else {
+    echo "<script>alert('No se pudo cargar archivo');
+          window.location='registro.php';
+          </script>";
+  }
+
+
+  if (isset($_SESSION['nombre'])) {
+
+    $ido = $_SESSION['id'];
+    $iddes = (int)LimpiarCadena($_POST['cmbDestino']);
+    $mensaje = LimpiarCadena($_POST['txtMensaje']);
+
+    $Foto1 = $filename;
+    enviarmensaje($ido, $iddes, $mensaje, $Foto1);
+  } else {
+    header('location: principal.php');
+    exit();
+  }
+}
 if (isset($_POST['btnCrear'])) {
   if (isset($_POST['chkPublico'])) {
     $idt = LimpiarCadena($_POST['txtMensaje']);
@@ -80,6 +126,7 @@ if (isset($_POST['btnDespublicar_1'])) {
 $resultado = mostrar();
 $resultado2 = mostrarid($_SESSION['id']);
 $usu = mostrarusu();
+$mensa = mostrarmensajes($_SESSION['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -249,7 +296,6 @@ $usu = mostrarusu();
                                         <button type="submit" name="btnBorrar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Borrar</button>
                                       </div>
                                     </form>
-
                                   </td>
                                 </tr>
                                 </td>
@@ -329,7 +375,45 @@ $usu = mostrarusu();
                 <div class="center">
                   <div class="tab-content p-3">
                     <div class="tab-pane active" id="Mensajer">
-
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span></h5>
+                          <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                              <tbody>
+                                <?php while ($filaM = $mensa->fetch_assoc()) { ?>
+                                  <tr>
+                                    <td>
+                                      <div class="media">
+                                        <?php $FOTO = $filaM ['FOTO']; ?>
+                                        <div class="profile">
+                                          <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filaM['ORIGEN']; ?></a></h1>
+                                          <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO'" . '</div><br>'; ?>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="media">
+                                        <div class="media-body">
+                                          <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $filaM['MENSAJE']; ?></h6>
+                                        </div>
+                                        <div class="media-body">
+                                          <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $filaM['FECHA']; ?></h6>
+                                        </div>
+                                      </div>
+                                      <tr>
+                                  <td colspan="3" style="text-align:center;">
+                                  <?php echo "<a href='archivos/$FOTO' download>$FOTO</a>" ;?>
+                                  </td>
+                                </tr>
+                                    </td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="tab-pane" id="Mensajese">
 
@@ -341,7 +425,7 @@ $usu = mostrarusu();
                           <label for="username" class="text-info">Destinatario</label><br>
                           <form class="form" enctype="multipart/form-data" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
 
-                            <select class="form-select" aria-label="Default select example">
+                            <select name="cmbDestino" class="form-select" aria-label="Default select example">
                               <option selected>Elegir destinatario</option>
                               <?php
                               while ($fila3 = $usu->fetch_assoc()) {
@@ -452,6 +536,7 @@ $usu = mostrarusu();
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="assets2/js/noreenvio.js"></script>
   <script src="assets2/js/main.js"></script>
   <script src="assets2/js/jquery.min.js"></script>
   <script src="assets2/js/popper.min.js"></script>

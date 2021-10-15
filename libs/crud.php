@@ -69,7 +69,14 @@
         $conexion->close();
     }
 
-
+    function enviarmensaje($ido, $iddes, $mensaje,$Foto1){
+        require "conexion.php";
+        $sentencia=$conexion->prepare("INSERT INTO `mensajes` SET `MENSAJE`=?, `ID_USUARIOD`=?, `ID_USUARIOO`=? ,`ARCHIVO`=?");
+        $sentencia->bind_param('siis',$mensaje,$iddes,$ido,$Foto1);
+        $sentencia->execute();
+        $sentencia->close();
+        $conexion->close();
+    }
     function mostrar(){
         require "conexion.php";
         
@@ -88,8 +95,15 @@
     }
     function mostrarid($id){
         require "conexion.php";
-        
         $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.FOTO, T.ID_TUIT, T.TUIT, T.FECHA, T.PUBLICO FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO WHERE T.ID_USUARIO = ? ORDER BY T.FECHA DESC");
+        $sentencia->bind_param('i',$id);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        return $resultado;
+    }
+    function mostrarmensajes($id){
+        require "conexion.php";
+        $sentencia=$conexion->prepare("SELECT ID_MENSAJE,MENSAJE,U.NOMBRE AS 'DESTINO', O.NOMBRE AS 'ORIGEN',O.FOTO, ARCHIVO, FECHA FROM `mensajes` AS M INNER JOIN usuarios U ON U.ID_USUARIO = M.ID_USUARIOD INNER JOIN usuarios O ON O.ID_USUARIO = M.ID_USUARIOO WHERE ID_USUARIOD = ? ORDER BY `FECHA` DESC");
         $sentencia->bind_param('i',$id);
         $sentencia->execute();
         $resultado = $sentencia->get_result();
