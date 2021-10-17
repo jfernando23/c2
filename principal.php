@@ -1,5 +1,6 @@
 <?php
-session_start();
+include_once "libs/sesionsegura.php";
+//session_start();
 $img = $_SESSION['foto'];
 include_once "libs/crud.php";
 require "limpiar.php";
@@ -406,10 +407,12 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                   <tr>
                                     <td>
                                       <div class="media">
-                                        <?php $FOTO = $filaM['FOTO']; ?>
+                                        <?php $FOTOA = $filaM['FOTO'];
+                                              $FOTOB =$filaM['ARCHIVO'];
+                                        ?>
                                         <div class="profile">
                                           <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filaM['ORIGEN']; ?></a></h1>
-                                          <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO'" . '</div><br>'; ?>
+                                          <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTOA'" . '</div><br>'; ?>
                                         </div>
                                       </div>
                                     </td>
@@ -424,7 +427,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                       </div>
                                   <tr>
                                     <td colspan="3" style="text-align:center;">
-                                      <?php echo "<a href='archivos/$FOTO' download>$FOTO</a>"; ?>
+                                      <?php echo "<a href='archivos/$FOTOB' download>$FOTOB</a>"; ?>
                                     </td>
                                   </tr>
                                   </td>
@@ -447,10 +450,12 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                   <tr>
                                     <td>
                                       <div class="media">
-                                        <?php $FOTO2 = $filamio['FOTO']; ?>
+                                        <?php $FOTO3 = $filamio['FOTO']; 
+                                              $FOTO3B = $filamio['ARCHIVO']
+                                        ?>
                                         <div class="profile">
                                           <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filamio['DESTINO']; ?></a></h1>
-                                          <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO2'" . '</div><br>'; ?>
+                                          <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO3'" . '</div><br>'; ?>
                                         </div>
                                       </div>
                                     </td>
@@ -465,7 +470,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                       </div>
                                   <tr>
                                     <td colspan="3" style="text-align:center;">
-                                      <?php echo "<a href='archivos/$FOTO2' download>$FOTO2</a>"; ?>
+                                      <?php echo "<a href='archivos/$FOTO3B' download>$FOTO3B</a>"; ?>
                                     </td>
                                   </tr>
                                   </td>

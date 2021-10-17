@@ -1,5 +1,6 @@
 <?php
-    session_start();
+    include_once "libs/sesionsegura.php";
+    //session_start();
     require "limpiar.php";
     include_once "libs/crud.php";
    
