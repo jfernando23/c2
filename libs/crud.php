@@ -65,21 +65,40 @@
         $sentencia=$conexion->prepare("INSERT INTO `tuits` SET `ID_USUARIO`=?, `TUIT`=?, `PUBLICO`=?");
         $sentencia->bind_param('iss',$id,$tuit,$publico);
         $sentencia->execute();
+        $resultado = $sentencia-> affected_rows;
+        if ($resultado==1) {
+            echo "<script>alert('Tuit creado correctamente');
+            window.location='principal.php#about';
+            </script>";
+        }else{
+            echo "<script>alert('No se pudo crear tuit');
+            </script>";
+        }
         $sentencia->close();
         $conexion->close();
     }
 
     function enviarmensaje($ido, $iddes, $mensaje,$Foto1){
+        
         require "conexion.php";
         $sentencia=$conexion->prepare("INSERT INTO `mensajes` SET `MENSAJE`=?, `ID_USUARIOD`=?, `ID_USUARIOO`=? ,`ARCHIVO`=?");
         $sentencia->bind_param('siis',$mensaje,$iddes,$ido,$Foto1);
         $sentencia->execute();
+        $resultado = $sentencia-> affected_rows;
+        if ($resultado==1) {
+            echo "<script>alert('Mensaje creado');
+            window.location='principal.php#resume';
+            </script>";
+        }else{
+            echo "<script>alert('No se pudo enviar el mensaje');
+            window.location='principal.php#resume';
+            </script>";
+        }
         $sentencia->close();
         $conexion->close();
     }
     function mostrar(){
         require "conexion.php";
-        
         $sentencia=$conexion->prepare("SELECT U.NOMBRE, U.APELLIDO, U.FOTO, T.TUIT, T.FECHA FROM tuits AS T INNER JOIN usuarios U ON U.ID_USUARIO = T.ID_USUARIO WHERE T.PUBLICO = 'Sí' ORDER BY T.FECHA DESC");
         $sentencia->execute();
         $resultado = $sentencia->get_result();
@@ -87,7 +106,6 @@
     }
     function mostrarusu(){
         require "conexion.php";
-        
         $sentencia=$conexion->prepare("SELECT ID_USUARIO, NOMBRE, APELLIDO FROM `usuarios`");
         $sentencia->execute();
         $resultado = $sentencia->get_result();
@@ -132,10 +150,12 @@
             $resultado = $sentencia->get_result();
         }else {
             echo "<script>alert('No se puede eliminar');
+            window.location='principal.php#about';
             </script>";
         }
         }else{
         echo "<script>alert('No existe el tuit');
+        window.location='principal.php#about';
         </script>";
         }  
     }
@@ -153,11 +173,13 @@
             $sentencia->execute();
             $resultado = $sentencia->get_result();
         }else {
-            echo "<script>alert('No se puede eliminar');
+            echo "<script>alert('No se puede publicar este tuit');
+            window.location='principal.php#about';
             </script>";
         }
         }else{
         echo "<script>alert('No existe el tuit');
+        window.location='principal.php#about';
         </script>";
         }  
     }
@@ -175,11 +197,13 @@
             $sentencia->execute();
             $resultado = $sentencia->get_result();
         }else {
-            echo "<script>alert('No se puede eliminar');
+            echo "<script>alert('No se puede desplublicar este tuit');
+            window.location='principal.php#about';
             </script>";
         }
         }else{
         echo "<script>alert('No existe el tuit');
+        window.location='principal.php#about';
         </script>";
         }  
     }
@@ -203,6 +227,7 @@
             </script>";
         }else{
             echo "<script>alert('No se pudo realizar el cambio');
+            window.location='principal.php';
             </script>";
         }
         

@@ -4,29 +4,37 @@ include_once "libs/crud.php";
 require "limpiar.php";
 if (isset($_POST['btnRegistrar'])) {
     if (isset($_FILES['archivo']['tmp_name'])) {
-        foreach ($_FILES['archivo']['tmp_name'] as $key => $value) {
+        $fileTmpPath = $_FILES['archivo']['tmp_name'];
+        $fileName = $_FILES['archivo']['name'];
+        $fileSize = $_FILES['archivo']['size'];
+        $fileType = $_FILES['archivo']['type'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
 
-            if ($_FILES['archivo']['name'][$key]) {
+        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
-                $filename = $_FILES['archivo']['name'][$key];
-                $temporal = $_FILES['archivo']['tmp_name'][$key];
+        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg','pdf','docx','xlsx','pptx');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
 
-                $directorio = "archivos/";
-
-                if (!file_exists($directorio)) {
-                    mkdir($directorio, 0777);
-                }
-
-                $dir = opendir($directorio);
-                $ruta = $directorio . '/' . $filename;
-
-                if (move_uploaded_file($temporal, $ruta)) {
-                    echo "El archivo $filename se ha almacenado correctamente";
-                } else {
-                    echo "Ha ocurrido un error";
-                }
-                closedir($dir);
+            // directory in which the uploaded file will be moved
+            $directorio = 'archivos/';
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0777);
             }
+
+            $dir = opendir($directorio);
+            $ruta = $directorio . '/' . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $ruta)) {
+                //echo "El archivo $filename se ha almacenado correctamente";
+            } else {
+                //echo "Ha ocurrido un error";
+            }
+            closedir($dir);
+        }else{
+            "<script>alert('El archivo no corresponde a el formato permitido');
+            window.location='registro.php';
+            </script>";
         }
     } else {
         echo "<script>alert('No se pudo cargar archivo');
@@ -40,7 +48,7 @@ if (isset($_POST['btnRegistrar'])) {
     $Direccion1 = LimpiarCadena($_POST['txtDir']);
     $Hijos1 = LimpiarCadena($_POST['txtNumHij']);
     $Ecivil1 = LimpiarCadena($_POST['txtEstCivil']);
-    $Foto1 = $filename;
+    $Foto1 = $newFileName;
     $Usuario1 = LimpiarCadena($_POST['txtUsuario']);
     $Contrasena1 = hash("sha512", LimpiarCadena($_POST['txtClave']));
     crearusu($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Ecivil1, $Foto1, $Usuario1, $Contrasena1);
@@ -103,7 +111,7 @@ if (isset($_POST['btnRegistrar'])) {
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                            <input type="file" name="archivo[]" id="archivo[]" multiple="" class="btn btn-info btn-md">
+                            <input type="file" name="archivo" id="archivo[]" multiple="" class="btn btn-info btn-md">
                             <br>
                             <br>
                         </div>
@@ -117,4 +125,5 @@ if (isset($_POST['btnRegistrar'])) {
     </div>
 </div>
 <script src="assets2/js/noreenvio.js"></script>
+
 </html>
