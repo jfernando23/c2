@@ -9,38 +9,38 @@ if (!isset($_SESSION['id'])) {
 }
 if (isset($_POST['btnActualizar'])) {
   if (isset($_FILES['archivo']['tmp_name'])) {
-        $fileTmpPath = $_FILES['archivo']['tmp_name'];
-        $fileName = $_FILES['archivo']['name'];
-        $fileSize = $_FILES['archivo']['size'];
-        $fileType = $_FILES['archivo']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
+    $fileTmpPath = $_FILES['archivo']['tmp_name'];
+    $fileName = $_FILES['archivo']['name'];
+    $fileSize = $_FILES['archivo']['size'];
+    $fileType = $_FILES['archivo']['type'];
+    $fileNameCmps = explode(".", $fileName);
+    $fileExtension = strtolower(end($fileNameCmps));
 
-        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
-        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg','pdf','docx','xlsx','pptx');
-        if (in_array($fileExtension, $allowedfileExtensions)) {
+    $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'pdf', 'docx', 'xlsx', 'pptx');
+    if (in_array($fileExtension, $allowedfileExtensions)) {
 
-            // directory in which the uploaded file will be moved
-            $directorio = 'archivos/';
-            if (!file_exists($directorio)) {
-                mkdir($directorio, 0777);
-            }
+      // directory in which the uploaded file will be moved
+      $directorio = 'archivos/';
+      if (!file_exists($directorio)) {
+        mkdir($directorio, 0777);
+      }
 
-            $dir = opendir($directorio);
-            $ruta = $directorio . '/' . $newFileName;
+      $dir = opendir($directorio);
+      $ruta = $directorio . '/' . $newFileName;
 
-            if (move_uploaded_file($fileTmpPath, $ruta)) {
-                //echo "El archivo $filename se ha almacenado correctamente";
-            } else {
-                //echo "Ha ocurrido un error";
-            }
-            closedir($dir);
-        }else{
-            "<script>alert('El archivo no corresponde a el formato permitido');
+      if (move_uploaded_file($fileTmpPath, $ruta)) {
+        //echo "El archivo $filename se ha almacenado correctamente";
+      } else {
+        //echo "Ha ocurrido un error";
+      }
+      closedir($dir);
+    } else {
+      "<script>alert('El archivo no corresponde a el formato permitido');
             window.location='registro.php';
             </script>";
-        }
+    }
   } else {
     echo "<script>alert('No se pudo cargar archivo');
           window.location='registro.php';
@@ -65,38 +65,38 @@ if (isset($_POST['btnActualizar'])) {
 }
 if (isset($_POST['btnEnviar'])) {
   if (isset($_FILES['archivo']['tmp_name'])) {
-        $fileTmpPath = $_FILES['archivo']['tmp_name'];
-        $fileName = $_FILES['archivo']['name'];
-        $fileSize = $_FILES['archivo']['size'];
-        $fileType = $_FILES['archivo']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
+    $fileTmpPath = $_FILES['archivo']['tmp_name'];
+    $fileName = $_FILES['archivo']['name'];
+    $fileSize = $_FILES['archivo']['size'];
+    $fileType = $_FILES['archivo']['type'];
+    $fileNameCmps = explode(".", $fileName);
+    $fileExtension = strtolower(end($fileNameCmps));
 
-        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
-        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg','pdf','docx','xlsx','pptx');
-        if (in_array($fileExtension, $allowedfileExtensions)) {
+    $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'pdf', 'docx', 'xlsx', 'pptx');
+    if (in_array($fileExtension, $allowedfileExtensions)) {
 
-            // directory in which the uploaded file will be moved
-            $directorio = 'archivos/';
-            if (!file_exists($directorio)) {
-                mkdir($directorio, 0777);
-            }
+      // directory in which the uploaded file will be moved
+      $directorio = 'archivos/';
+      if (!file_exists($directorio)) {
+        mkdir($directorio, 0777);
+      }
 
-            $dir = opendir($directorio);
-            $ruta = $directorio . '/' . $newFileName;
+      $dir = opendir($directorio);
+      $ruta = $directorio . '/' . $newFileName;
 
-            if (move_uploaded_file($fileTmpPath, $ruta)) {
-                //echo "El archivo $filename se ha almacenado correctamente";
-            } else {
-                //echo "Ha ocurrido un error";
-            }
-            closedir($dir);
-        }else{
-            "<script>alert('El archivo no corresponde a el formato permitido');
+      if (move_uploaded_file($fileTmpPath, $ruta)) {
+        //echo "El archivo $filename se ha almacenado correctamente";
+      } else {
+        //echo "Ha ocurrido un error";
+      }
+      closedir($dir);
+    } else {
+      "<script>alert('El archivo no corresponde a el formato permitido');
             window.location='registro.php';
             </script>";
-        }
+    }
   } else {
     echo "<script>alert('No se pudo cargar archivo');
           window.location='registro.php';
@@ -119,11 +119,11 @@ if (isset($_POST['btnEnviar'])) {
 }
 if (isset($_POST['btnCrear'])) {
   if (isset($_POST['chkPublico'])) {
-    $idt = LimpiarCadena($_POST['txtMensaje']);
+    $idt = LimpiarCadena($_POST['txtArticulo']);
     $idu = $_SESSION['id'];
     tuit($idu, $idt, 'Sí');
   } else {
-    $idt = LimpiarCadena($_POST['txtMensaje']);
+    $idt = LimpiarCadena($_POST['txtArticulo']);
     $idu = $_SESSION['id'];
     tuit($idu, $idt, 'No');
   }
@@ -237,10 +237,10 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                   <a href="javascript:void();" name="lnkArticulos" data-target="#tarticulos" data-toggle="pill" class="nav-link active"><i class="zmdi zmdi-male-female"></i> <span class="hidden-xs">Todos los artículos</span></a>
                 </li>
                 <li class="nav-item">
-                  <a href="javascript:void();" name="lnkMisArticulos" data-target="#misarticulos" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-account-calendar"></i> <span class="hidden-xs">Mis artículo</span></a>
+                  <a href="javascript:void();" name="lnkMisArticulos" data-target="#misarticulos" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-account-calendar"></i> <span class="hidden-xs">Mis artículos</span></a>
                 </li>
                 <li class="nav-item">
-                  <a href="javascript:void();" name="lnkCrearArticulos" data-target="#creararticulo" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-mood-bad"></i> <span class="hidden-xs">Crear artículo</span></a>
+                  <a href="javascript:void();" name="lnkCrearArticulo" data-target="#creararticulo" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-mood-bad"></i> <span class="hidden-xs">Crear artículo</span></a>
                 </li>
               </ul>
               <div class="center">
@@ -339,7 +339,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                           <h3 class="text-center text-info">Crear Artículo</h3>
                           <div class="form-group">
                             <label for="username" class="text-info">Artículo</label><br>
-                            <input name="txtMensaje" id="txtMensaje" type="text" value="" pattern="[A-Za-z9-0]" class="form-control">
+                            <input name="txtArticulo" id="txtArticulo" type="text" value="" pattern="[A-Za-z9-0]" class="form-control">
                           </div>
                           <div class="form-check">
                             <label class="form-check-label">
@@ -408,7 +408,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                     <td>
                                       <div class="media">
                                         <?php $FOTOA = $filaM['FOTO'];
-                                              $FOTOB =$filaM['ARCHIVO'];
+                                        $FOTOB = $filaM['ARCHIVO'];
                                         ?>
                                         <div class="profile">
                                           <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filaM['ORIGEN']; ?></a></h1>
@@ -450,8 +450,8 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                   <tr>
                                     <td>
                                       <div class="media">
-                                        <?php $FOTO3 = $filamio['FOTO']; 
-                                              $FOTO3B = $filamio['ARCHIVO']
+                                        <?php $FOTO3 = $filamio['FOTO'];
+                                        $FOTO3B = $filamio['ARCHIVO']
                                         ?>
                                         <div class="profile">
                                           <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filamio['DESTINO']; ?></a></h1>
@@ -540,6 +540,13 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
             <div class="card-body">
               <form class="form" action="" method="post" enctype="multipart/form-data">
                 <h3 class="text-center text-info">Mis Datos</h3>
+                <?php
+                $captcha_text = rand(1000, 9999);
+                echo '<div class="form-group">
+                        <label for="username" class="text-info">Captcha generado:</label><br>
+                        <input name="txtNombre" id="txtNombre" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
+                        </div>';
+                ?>
                 <div class="form-group">
                   <label for="username" class="text-info">Nombres:</label><br>
                   <input name="txtNombre" id="txtNombre" type="text" value="<?php echo $_SESSION['nombre']; ?>" pattern="[A-Za-z9-0]" class="form-control">
@@ -550,29 +557,33 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Correo:</label><br>
-                  <input name="txtCorreo" id="txtCorreo" type="text" value="<?php echo $_SESSION['correo']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                  <input name="txtCorreo" id="txtCorreo" type="text" value="<?php echo $_SESSION['correo']; ?>" pattern="[A-Za-z9-0]" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Dirección:</label><br>
-                  <input name="txtDir" id="txtDir" type="text" value="<?php echo $_SESSION['direccion']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                  <input name="txtDir" id="txtDir" type="text" value="<?php echo $_SESSION['direccion']; ?>" pattern="[A-Za-z9-0]" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Numero de Hijos:</label><br>
-                  <input name="txtNumHij" id="txtNumHij" type="text" value="<?php echo $_SESSION['hijos']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                  <input name="txtNumHij" id="txtNumHij" type="text" value="<?php echo $_SESSION['hijos']; ?>" pattern="[A-Za-z9-0]" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Estado Civil:</label><br>
-                  <input name="txtEstCivil" id="txtEstCivil" type="text" value="<?php echo $_SESSION['estado']; ?>" pattern="[A-Za-z9-0]" class="form-control">
+                  <input name="txtEstCivil" id="txtEstCivil" type="text" value="<?php echo $_SESSION['estado']; ?>" pattern="[A-Za-z9-0]" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                  <input type="file" value="<?php echo $_SESSION['foto']; ?>" name="archivo" id="archivo[]" multiple="" class="btn btn-info btn-md">
+                  <input type="file" value="<?php echo $_SESSION['foto']; ?>" name="archivo" id="archivo[]" multiple="" class="btn btn-info btn-md" required>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Captcha</label><br>
+                  <input name="txtcapcha" id="txtcapcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
                   <br>
                   <br>
                 </div>
                 <div class="form-group">
                   <input type="submit" name="btnActualizar" value="Actualizar" class="btn btn-info btn-md">
-                  <input type="submit" name="btnCambio" value="Cambiar Clave" class="btn btn-info btn-md">
+                  <a href="cambio.php"><input name="btnCambio" type="button" value="Cambiar Clave" class="btn btn-info btn-md"></a>
                 </div>
               </form>
             </div>

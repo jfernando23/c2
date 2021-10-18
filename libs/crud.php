@@ -68,7 +68,7 @@
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
             echo "<script>alert('Tuit creado correctamente');
-            window.location='principal.php#about';
+            window.location='principal.php';
             </script>";
         }else{
             echo "<script>alert('No se pudo crear tuit');
@@ -251,7 +251,7 @@
             if ($resultado==1) {
                 session_destroy();
                 echo "<script>alert('Cambio realizado');
-                window.location='login.php';
+                window.location='index.php';
                 </script>";
             }else{
                 echo "<script>alert('No se pudo realizar el cambio');
@@ -259,7 +259,7 @@
             }
             
         }else {
-            echo "<script>alert('La contraseña no coincide');
+            echo "<script>alert('La contraseña anterior no coincide');
             </script>";
         }
         }else{

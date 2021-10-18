@@ -14,7 +14,7 @@ if (isset($_POST['btnRegistrar'])) {
 
         $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
-        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg','pdf','docx','xlsx','pptx');
+        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'pdf', 'docx', 'xlsx', 'pptx');
         if (in_array($fileExtension, $allowedfileExtensions)) {
 
             // directory in which the uploaded file will be moved
@@ -32,7 +32,7 @@ if (isset($_POST['btnRegistrar'])) {
                 //echo "Ha ocurrido un error";
             }
             closedir($dir);
-        }else{
+        } else {
             "<script>alert('El archivo no corresponde a el formato permitido');
             window.location='registro.php';
             </script>";
@@ -76,49 +76,38 @@ if (isset($_POST['btnRegistrar'])) {
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="" method="post" enctype="multipart/form-data">
+                    <form id="login-form" class="form-group" action="" method="post" enctype="multipart/form-data">
                         <h3 class="text-center text-info">Registro</h3>
-                        <div class="form-group">
+                        <?php
+                        $captcha_text = rand(1000, 9999);
+                        echo '<div class="form-group">
+                        <label for="username" class="text-info">Captcha generado:</label><br>
+                        <input name="captcha" id="captcha" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
+                        </div>';
+                        ?>
                             <label for="username" class="text-info">Nombres:</label><br>
-                            <input name="txtNombre" id="txtNombre" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
+                            <input name="txtNombre" id="txtNombre" type="text" pattern="[A-Za-z9-0]" class="form-control" required>
                             <label for="password" class="text-info">Apellidos:</label><br>
-                            <input name="txtApellidos" id="txtApellidos" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
+                            <input name="txtApellidos" id="txtApellidos" type="text" pattern="[A-Za-z9-0]" class="form-control"  required>
                             <label for="password" class="text-info">Correo:</label><br>
-                            <input name="txtCorreo" id="txtCorreo" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
+                            <input name="txtCorreo" id="txtCorreo" type="text" pattern="[A-Za-z9-0]" class="form-control"  required>
                             <label for="password" class="text-info">Dirección:</label><br>
-                            <input name="txtDir" id="txtDir" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
+                            <input name="txtDir" id="txtDir" type="text" pattern="[A-Za-z9-0]" class="form-control"  required>
                             <label for="password" class="text-info">Numero de Hijos:</label><br>
-                            <input name="txtNumHij" id="txtNumHij" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
+                            <input name="txtNumHij" id="txtNumHij" type="text" pattern="[A-Za-z9-0]" class="form-control"  required>
                             <label for="password" class="text-info">Estado Civil:</label><br>
-                            <input name="txtEstCivil" id="txtEstCivil" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="text-info">Usuario:</label><br>
-                            <input name="txtUsuario" id="txtUsuario" type="text" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="text-info">Contraseña:</label><br>
-                            <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]" class="form-control">
-                        </div>
-                        <div class="form-group">
+                            <input name="txtEstCivil" id="txtEstCivil" type="text" pattern="[A-Za-z9-0]" class="form-control"  required>
                             <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                            <input type="file" name="archivo" id="archivo[]" multiple="" class="btn btn-info btn-md">
+                            <input type="file" name="archivo" id="archivo" multiple="" class="btn btn-info btn-md" required><br>
+                            <label for="password" class="text-info">Usuario:</label><br>
+                            <input name="txtUsuario" id="txtUsuario" type="text" pattern="[A-Za-z9-0]" class="form-control"  required>
+                            <label for="password" class="text-info">Contraseña:</label><br>
+                            <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]" class="form-control"  required>
+                            <label for="password" class="text-info">Captcha</label><br>
+                            <input name="txtCaptcha" id="txtcaptcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
                             <br>
                             <br>
-                        </div>
-                        <div class="form-group">
                             <input type="submit" name="btnRegistrar" value="Registrar" class="btn btn-info btn-md">
-                        </div>
                     </form>
                 </div>
             </div>
