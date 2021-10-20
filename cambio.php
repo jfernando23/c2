@@ -50,7 +50,7 @@ if (isset($_POST['btnActualizar'])) {
                         $captcha_text = rand(1000, 9999);
                         echo '<div class="form-group">
                         <label for="username" class="text-info">Captcha generado:</label><br>
-                        <input name="txtNombre" id="txtNombre" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
+                        <input name="captcha" id="captcha" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
                         </div>';
                         ?>
                         <div class="form-group">
@@ -67,7 +67,7 @@ if (isset($_POST['btnActualizar'])) {
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Captcha</label><br>
-                            <input name="txtcapcha" id="txtcapcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
+                            <input name="txtCaptcha" id="txtCaptcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
                             <br>
                             <br>
                         </div>

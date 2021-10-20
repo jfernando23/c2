@@ -8,11 +8,11 @@ if (!isset($_SESSION['id'])) {
   header("location:index.php");
 }
 if (isset($_POST['btnActualizar'])) {
-  if (isset($_FILES['archivo']['tmp_name'])) {
-    $fileTmpPath = $_FILES['archivo']['tmp_name'];
-    $fileName = $_FILES['archivo']['name'];
-    $fileSize = $_FILES['archivo']['size'];
-    $fileType = $_FILES['archivo']['type'];
+  if (isset($_FILES['archivo2']['tmp_name'])) {
+    $fileTmpPath = $_FILES['archivo2']['tmp_name'];
+    $fileName = $_FILES['archivo2']['name'];
+    $fileSize = $_FILES['archivo2']['size'];
+    $fileType = $_FILES['archivo2']['type'];
     $fileNameCmps = explode(".", $fileName);
     $fileExtension = strtolower(end($fileNameCmps));
 
@@ -94,7 +94,7 @@ if (isset($_POST['btnEnviar'])) {
       closedir($dir);
     } else {
       "<script>alert('El archivo no corresponde a el formato permitido');
-            window.location='registro.php';
+            window.location='principal.php';
             </script>";
     }
   } else {
@@ -419,7 +419,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                     <td>
                                       <div class="media">
                                         <div class="media-body">
-                                          <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $filaM['MENSAJE']; ?></h6>
+                                          <h6 name="lblTexto_1" id="lblTexto_1" class="mt-3 user-title"><?php echo $filaM['MENSAJE']; ?></h6>
                                         </div>
                                         <div class="media-body">
                                           <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $filaM['FECHA']; ?></h6>
@@ -427,7 +427,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                       </div>
                                   <tr>
                                     <td colspan="3" style="text-align:center;">
-                                      <?php echo "<a href='archivos/$FOTOB' download>$FOTOB</a>"; ?>
+                                      <?php echo "<a id='Descargar' href='archivos/$FOTOB' download>$FOTOB</a>"; ?>
                                     </td>
                                   </tr>
                                   </td>
@@ -454,7 +454,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                         $FOTO3B = $filamio['ARCHIVO']
                                         ?>
                                         <div class="profile">
-                                          <h1 name="lblAutor_1" class="text-light"><a class="font-weight-bold"><?php echo $filamio['DESTINO']; ?></a></h1>
+                                          <h1 name="lblAutor_2" class="text-light"><a class="font-weight-bold"><?php echo $filamio['DESTINO']; ?></a></h1>
                                           <?php echo "<img name='imgFotoAutor_1' width='100' height='100' src='archivos/$FOTO3'" . '</div><br>'; ?>
                                         </div>
                                       </div>
@@ -462,15 +462,15 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                     <td>
                                       <div class="media">
                                         <div class="media-body">
-                                          <h6 name="lblTexto_1" class="mt-3 user-title"><?php echo $filamio['MENSAJE']; ?></h6>
+                                          <h6 name="lblTexto_2" id="lblTexto_2" class="mt-3 user-title"><?php echo $filamio['MENSAJE']; ?></h6>
                                         </div>
                                         <div class="media-body">
-                                          <h6 name="lblFecha_1" class="mt-3 user-title"><?php echo $filamio['FECHA']; ?></h6>
+                                          <h6 name="lblFecha_2" class="mt-3 user-title"><?php echo $filamio['FECHA']; ?></h6>
                                         </div>
                                       </div>
                                   <tr>
                                     <td colspan="3" style="text-align:center;">
-                                      <?php echo "<a href='archivos/$FOTO3B' download>$FOTO3B</a>"; ?>
+                                      <?php echo "<a name='lnkAdjunto_2' href='archivos/$FOTO3B' download>$FOTO3B</a>"; ?>
                                     </td>
                                   </tr>
                                   </td>
@@ -489,7 +489,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                           <label for="username" class="text-info">Destinatario</label><br>
                           <form class="form" enctype="multipart/form-data" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
 
-                            <select name="cmbDestino" class="form-select" aria-label="Default select example">
+                            <select name="cmbDestino" id="cmbDestino" class="form-select" aria-label="Default select example">
                               <option selected>Elegir destinatario</option>
                               <?php
                               while ($fila3 = $usu->fetch_assoc()) {
@@ -544,7 +544,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                 $captcha_text = rand(1000, 9999);
                 echo '<div class="form-group">
                         <label for="username" class="text-info">Captcha generado:</label><br>
-                        <input name="txtNombre" id="txtNombre" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
+                        <input name="captcha" id="captcha" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
                         </div>';
                 ?>
                 <div class="form-group">
@@ -573,11 +573,11 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Foto de Pérfil:</label><br>
-                  <input type="file" value="<?php echo $_SESSION['foto']; ?>" name="archivo" id="archivo[]" multiple="" class="btn btn-info btn-md" required>
+                  <input type="file" name="archivo2" id="archivo2" multiple="" class="btn btn-info btn-md">
                 </div>
                 <div class="form-group">
                   <label for="password" class="text-info">Captcha</label><br>
-                  <input name="txtcapcha" id="txtcapcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
+                  <input name="txtCaptcha" id="txtCaptcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
                   <br>
                   <br>
                 </div>
