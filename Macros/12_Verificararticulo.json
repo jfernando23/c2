@@ -1,0 +1,194 @@
+{
+  "Name": "12_Verificararticulo",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": "esperando"
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": "esperando"
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": "Esperando"
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "verifyText",
+      "Target": "name=lblTexto_1",
+      "Value": "Hola",
+      "Targets": [
+        "name=lblTexto_1",
+        "xpath=//*[@id=\"tarticulos\"]/div/div/div/table/tbody/tr/td[2]/div/div/h6",
+        "xpath=//h6[@name='lblTexto_1']",
+        "xpath=//h6",
+        "css=#tarticulos > div > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div:nth-child(1) > h6"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=Crear artículo",
+      "Value": "",
+      "Targets": [
+        "linkText=Crear artículo",
+        "name=lnkCrearArticulo",
+        "xpath=//*[@id=\"about\"]/div[4]/div/div/div/ul/li[3]/a",
+        "xpath=//a[@name='lnkCrearArticulo']",
+        "xpath=//div/ul/li[3]/a",
+        "css=#about > div.content-wrapper > div > div > div > ul > li:nth-child(3) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "verifyText // linkText=Es público: Sí",
+      "Value": "Es público: Sí",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "if_v2 // ${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "echo // si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // name=btnDespublicar_1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "store // 50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "clickAndWait // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // linkText=Mis artículos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "verifyText // linkText=Es público: No",
+      "Value": "Es público: No",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "if_v2 // ${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "echo // si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // name=btnPublicar_1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "store // 50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "clickAndWait // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}

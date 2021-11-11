@@ -1,0 +1,113 @@
+{
+  "Name": "11_Loginpersona2",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "open",
+      "Target": "http://localhost/C2/",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtUsuario",
+      "Value": "",
+      "Targets": [
+        "id=txtUsuario",
+        "name=txtUsuario",
+        "xpath=//*[@id=\"txtUsuario\"]",
+        "xpath=//input[@id='txtUsuario']",
+        "xpath=//div[2]/input",
+        "css=#txtUsuario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtUsuario",
+      "Value": "Pau",
+      "Targets": [
+        "id=txtUsuario",
+        "name=txtUsuario",
+        "xpath=//*[@id=\"txtUsuario\"]",
+        "xpath=//input[@id='txtUsuario']",
+        "xpath=//div[2]/input",
+        "css=#txtUsuario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtClave",
+      "Value": "",
+      "Targets": [
+        "id=txtClave",
+        "name=txtClave",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave']",
+        "xpath=//div[3]/input",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtClave",
+      "Value": "12345",
+      "Targets": [
+        "id=txtClave",
+        "name=txtClave",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave']",
+        "xpath=//div[3]/input",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=captcha",
+      "Value": "store",
+      "Targets": [
+        "id=captcha",
+        "xpath=//*[@id=\"captcha\"]",
+        "xpath=//input[@id='captcha']",
+        "xpath=//input",
+        "css=#captcha"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "name=txtCaptcha",
+      "Value": "${store}",
+      "Targets": [
+        "name=txtCaptcha",
+        "xpath=/html/body/form/div[11]/input",
+        "xpath=//input[@name='txtCaptcha']",
+        "xpath=//div[11]/input",
+        "css=body > form > div:nth-child(11) > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnIngresar",
+      "Value": "",
+      "Targets": [
+        "name=btnIngresar",
+        "xpath=//*[@id=\"login-form\"]/div[5]/input",
+        "xpath=//input[@name='btnIngresar']",
+        "xpath=//div[5]/input",
+        "css=#login-form > div:nth-child(6) > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "waitForPageToLoad",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}

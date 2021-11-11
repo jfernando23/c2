@@ -1,0 +1,118 @@
+{
+  "Name": "18_Mensajessegundousuario",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=Crear mensaje",
+      "Value": "",
+      "Targets": [
+        "linkText=Crear mensaje",
+        "name=lnkCrearArticulos",
+        "xpath=//*[@id=\"resume\"]/div/div[4]/div/div/div/ul/li[3]/a",
+        "xpath=//a[@name='lnkCrearArticulos']",
+        "xpath=//div/div[4]/div/div/div/ul/li[3]/a",
+        "css=#resume > div > div.content-wrapper > div > div > div > ul > li:nth-child(3) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "select",
+      "Target": "name=cmbDestino",
+      "Value": "value=1",
+      "Targets": [
+        "name=cmbDestino",
+        "xpath=//*[@id=\"Crearm\"]/div/div/form/select",
+        "xpath=//select[@name='cmbDestino']",
+        "xpath=//select",
+        "css=#Crearm > div > div > form > select"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtMensaje",
+      "Value": "",
+      "Targets": [
+        "id=txtMensaje",
+        "name=txtMensaje",
+        "xpath=//*[@id=\"txtMensaje\"]",
+        "xpath=//input[@id='txtMensaje']",
+        "xpath=//div/div[4]/div/div/div/div/div/div[3]/div/div/form/div/input",
+        "css=#txtMensaje"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtMensaje",
+      "Value": "Hola Jeferson",
+      "Targets": [
+        "id=txtMensaje",
+        "name=txtMensaje",
+        "xpath=//*[@id=\"txtMensaje\"]",
+        "xpath=//input[@id='txtMensaje']",
+        "xpath=//div/div[4]/div/div/div/div/div/div[3]/div/div/form/div/input",
+        "css=#txtMensaje"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=archivo",
+      "Value": "",
+      "Targets": [
+        "id=archivo[]",
+        "name=archivo",
+        "xpath=//*[@id=\"archivo[]\"]",
+        "xpath=//input[@id='archivo[]']",
+        "xpath=//input[2]",
+        "css=#archivo[]"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "c:\\tmp\\documento.docx",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "${KEY_ENTER}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnEnviar",
+      "Value": "",
+      "Targets": [
+        "name=btnEnviar",
+        "xpath=//*[@id=\"Crearm\"]/div/div/form/div[2]/input",
+        "xpath=//input[@name='btnEnviar']",
+        "xpath=//div/div[4]/div/div/div/div/div/div[3]/div/div/form/div[2]/input",
+        "css=#Crearm > div > div > form > div:nth-child(3) > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "waitForPageToLoad",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}

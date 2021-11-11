@@ -1,0 +1,87 @@
+{
+  "Name": "15_Crearparaeliminar",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=lnkCrearArticulo",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"about\"]/div[4]/div/div/div/ul/li[3]/a/span",
+        "xpath=//div/ul/li[3]/a/span",
+        "css=#about > div.content-wrapper > div > div > div > ul > li:nth-child(3) > a > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtArticulo",
+      "Value": "",
+      "Targets": [
+        "id=txtArticulo",
+        "name=txtArticulo",
+        "xpath=//*[@id=\"txtArticulo\"]",
+        "xpath=//input[@id='txtArticulo']",
+        "xpath=//input",
+        "css=#txtArticulo"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtArticulo",
+      "Value": "Se va a eliminar",
+      "Targets": [
+        "id=txtArticulo",
+        "name=txtArticulo",
+        "xpath=//*[@id=\"txtArticulo\"]",
+        "xpath=//input[@id='txtArticulo']",
+        "xpath=//input",
+        "css=#txtArticulo"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnCrear",
+      "Value": "",
+      "Targets": [
+        "name=btnCrear",
+        "xpath=//*[@id=\"creararticulo\"]/div/div/form/div[3]/input",
+        "xpath=//input[@name='btnCrear']",
+        "xpath=//div[3]/input",
+        "css=#creararticulo > div > div > form > div:nth-child(4) > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "waitForPageToLoad",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}

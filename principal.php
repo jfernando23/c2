@@ -37,7 +37,7 @@ if (isset($_POST['btnActualizar'])) {
       }
       closedir($dir);
     } else {
-      "<script>alert('El archivo no corresponde a el formato permitido');
+      echo "<script>alert('El archivo no corresponde a el formato permitido');
             window.location='registro.php';
             </script>";
     }
@@ -93,7 +93,7 @@ if (isset($_POST['btnEnviar'])) {
       }
       closedir($dir);
     } else {
-      "<script>alert('El archivo no corresponde a el formato permitido');
+      echo "<script>alert('El archivo no corresponde a el formato permitido');
             window.location='principal.php';
             </script>";
     }

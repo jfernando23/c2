@@ -1,0 +1,202 @@
+{
+  "Name": "09_cambiar_contraseña",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=lnkPerfil",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkPerfil\"]/span",
+        "xpath=//li[4]/a/span",
+        "css=#lnkPerfil > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lnkPerfil",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkPerfil\"]/span",
+        "xpath=//li[4]/a/span",
+        "css=#lnkPerfil > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtNumHij",
+      "Value": "",
+      "Targets": [
+        "id=txtNumHij",
+        "name=txtNumHij",
+        "xpath=//*[@id=\"txtNumHij\"]",
+        "xpath=//input[@id='txtNumHij']",
+        "xpath=//div[6]/input",
+        "css=#txtNumHij"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "verifyValue",
+      "Target": "id=txtNumHij",
+      "Value": "3",
+      "Targets": [
+        "id=txtNumHij",
+        "name=txtNumHij",
+        "xpath=//*[@id=\"txtNumHij\"]",
+        "xpath=//input[@id='txtNumHij']",
+        "xpath=//div[6]/input",
+        "css=#txtNumHij"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Cambio realizado",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnCambio",
+      "Value": "",
+      "Targets": [
+        "name=btnCambio",
+        "xpath=//*[@id=\"contact\"]/div/div[2]/div/div/form/div[10]/a/input",
+        "xpath=//input[@name='btnCambio']",
+        "xpath=//a/input",
+        "css=#contact > div > div.mx-auto > div > div > form > div:nth-child(11) > a > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtUsuario",
+      "Value": "",
+      "Targets": [
+        "id=txtUsuario",
+        "name=txAnterior",
+        "xpath=//*[@id=\"txtUsuario\"]",
+        "xpath=//input[@id='txtUsuario']",
+        "xpath=//div[2]/input",
+        "css=#txtUsuario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtUsuario",
+      "Value": "12345",
+      "Targets": [
+        "id=txtUsuario",
+        "name=txAnterior",
+        "xpath=//*[@id=\"txtUsuario\"]",
+        "xpath=//input[@id='txtUsuario']",
+        "xpath=//div[2]/input",
+        "css=#txtUsuario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtClave",
+      "Value": "",
+      "Targets": [
+        "id=txtClave",
+        "name=txtNueva",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave']",
+        "xpath=//div[3]/input",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtClave",
+      "Value": "123456",
+      "Targets": [
+        "id=txtClave",
+        "name=txtNueva",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave']",
+        "xpath=//div[3]/input",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=txtRepetir",
+      "Value": "",
+      "Targets": [
+        "id=txtClave",
+        "name=txtRepetir",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave' and @name='txtRepetir']",
+        "xpath=//div[4]/input",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "name=txtRepetir",
+      "Value": "123456",
+      "Targets": [
+        "id=txtClave",
+        "name=txtRepetir",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave' and @name='txtRepetir']",
+        "xpath=//div[4]/input",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=captcha",
+      "Value": "store",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCaptcha",
+      "Value": "${store}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnActualizar",
+      "Value": "",
+      "Targets": [
+        "name=btnActualizar",
+        "xpath=//*[@id=\"login-form\"]/div[6]/input",
+        "xpath=//input[@name='btnActualizar']",
+        "xpath=//div[6]/input",
+        "css=#login-form > div:nth-child(7) > input"
+      ],
+      "Description": ""
+    }
+  ]
+}

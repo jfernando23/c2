@@ -1,0 +1,128 @@
+{
+  "Name": "08_cambiardatos",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "click",
+      "Target": "id=lnkPerfil",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkPerfil\"]/span",
+        "xpath=//li[4]/a/span",
+        "css=#lnkPerfil > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtNombre",
+      "Value": "",
+      "Targets": [
+        "id=txtNombre",
+        "name=txtNombre",
+        "xpath=//*[@id=\"txtNombre\"]",
+        "xpath=//input[@id='txtNombre' and @name='txtNombre' and @value='Jeferson Fernando']",
+        "xpath=//div[2]/div/div/form/div[2]/input",
+        "css=#txtNombre"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNombre",
+      "Value": "Jeferson",
+      "Targets": [
+        "id=txtNombre",
+        "name=txtNombre",
+        "xpath=//*[@id=\"txtNombre\"]",
+        "xpath=//input[@id='txtNombre' and @name='txtNombre' and @value='Jeferson Fernando']",
+        "xpath=//div[2]/div/div/form/div[2]/input",
+        "css=#txtNombre"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtNumHij",
+      "Value": "",
+      "Targets": [
+        "id=txtNumHij",
+        "name=txtNumHij",
+        "xpath=//*[@id=\"txtNumHij\"]",
+        "xpath=//input[@id='txtNumHij']",
+        "xpath=//div[6]/input",
+        "css=#txtNumHij"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNumHij",
+      "Value": "3",
+      "Targets": [
+        "id=txtNumHij",
+        "name=txtNumHij",
+        "xpath=//*[@id=\"txtNumHij\"]",
+        "xpath=//input[@id='txtNumHij']",
+        "xpath=//div[6]/input",
+        "css=#txtNumHij"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=archivo2",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "c:\\tmp\\cambioJefer.png",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "${KEY_ENTER}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=captcha",
+      "Value": "store",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCaptcha",
+      "Value": "${store}",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnActualizar",
+      "Value": "",
+      "Targets": [
+        "name=btnActualizar",
+        "xpath=//*[@id=\"contact\"]/div/div[2]/div/div/form/div[10]/input",
+        "xpath=//input[@name='btnActualizar']",
+        "xpath=//div[10]/input",
+        "css=#contact > div > div.mx-auto > div > div > form > div:nth-child(12) > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "waitForPageToLoad",
+      "Target": "3000",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}

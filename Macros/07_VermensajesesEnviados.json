@@ -1,0 +1,187 @@
+{
+  "Name": "07_VermensajesesEnviados",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "verifyText",
+      "Target": "id=lblTexto_2",
+      "Value": "Hola Paula",
+      "Targets": [
+        "id=lblTexto_1",
+        "name=lblTexto_1",
+        "xpath=//*[@id=\"lblTexto_1\"]",
+        "xpath=//h6[@id='lblTexto_1']",
+        "xpath=//div/div[4]/div/div/div/div/div/div[2]/div/div/div/table/tbody/tr/td[2]/div/div/h6",
+        "css=#lblTexto_1"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=Mensajes enviados",
+      "Value": "",
+      "Targets": [
+        "linkText=Mensajes enviados",
+        "name=lnkMisArticulos",
+        "xpath=//*[@id=\"resume\"]/div/div[4]/div/div/div/ul/li[2]/a",
+        "xpath=//div/div[4]/div/div/div/ul/li[2]/a",
+        "css=#resume > div > div.content-wrapper > div > div > div > ul > li:nth-child(2) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "verifyText",
+      "Target": "id=lblTexto_2",
+      "Value": "Hola Paula",
+      "Targets": [
+        "id=lblTexto_1",
+        "name=lblTexto_1",
+        "xpath=//*[@id=\"lblTexto_1\"]",
+        "xpath=//h6[@id='lblTexto_1']",
+        "xpath=//div/div[4]/div/div/div/div/div/div[2]/div/div/div/table/tbody/tr/td[2]/div/div/h6",
+        "css=#lblTexto_1"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Si se envió",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=lnkAdjunto_2",
+      "Value": "",
+      "Targets": [
+        "linkText=c155323abbed534d50895831cec92ab6.docx",
+        "name=lnkAdjunto_1",
+        "xpath=//*[@id=\"Mensajese\"]/div/div/div/table/tbody/tr[2]/td/a",
+        "xpath=//a[@name='lnkAdjunto_1']",
+        "xpath=//td/a",
+        "css=#Mensajese > div > div > div > table > tbody > tr:nth-child(2) > td > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "verifyText // linkText=Es público: Sí",
+      "Value": "Es público: Sí",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "if_v2 // ${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "echo // si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // name=btnDespublicar_1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "store // 50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "clickAndWait // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // linkText=Mis artículos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "verifyText // linkText=Es público: No",
+      "Value": "Es público: No",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "if_v2 // ${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "echo // si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // name=btnPublicar_1",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "end // ",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "store // 50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "clickAndWait // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "click // id=lnkArticulos",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}

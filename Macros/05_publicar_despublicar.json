@@ -1,0 +1,248 @@
+{
+  "Name": "05_publicar_despublicar",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": "esperando"
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": "esperando"
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "",
+      "Value": "",
+      "Description": "Esperando"
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "verifyText",
+      "Target": "name=lblTexto_1",
+      "Value": "Hola",
+      "Targets": [
+        "name=lblTexto_1",
+        "xpath=//*[@id=\"tarticulos\"]/div/div/div/table/tbody/tr/td[2]/div/div/h6",
+        "xpath=//h6[@name='lblTexto_1']",
+        "xpath=//h6",
+        "css=#tarticulos > div > div > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div:nth-child(1) > h6"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=Mis artículos",
+      "Value": "",
+      "Targets": [
+        "linkText=Mis artículos",
+        "name=lnkMisArticulos",
+        "xpath=//*[@id=\"about\"]/div[4]/div/div/div/ul/li[2]/a",
+        "xpath=//a[@name='lnkMisArticulos']",
+        "xpath=//div/ul/li[2]/a",
+        "css=#about > div.content-wrapper > div > div > div > ul > li:nth-child(2) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "verifyText",
+      "Target": "linkText=Es público: Sí",
+      "Value": "Es público: Sí",
+      "Targets": [
+        "linkText=Es público: Sí",
+        "xpath=//*[@id=\"misarticulos\"]/div/div/div/table/tbody/tr/td/div/div/h1[2]/a",
+        "xpath=//h1[2]/a",
+        "css=#misarticulos > div > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div > div > h1:nth-child(2) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnDespublicar_1",
+      "Value": "",
+      "Targets": [
+        "name=btnDespublicar_1",
+        "xpath=//*[@id=\"misarticulos\"]/div/div/div/table/tbody/tr[2]/td/form/div/button[2]",
+        "xpath=//button[@name='btnDespublicar_1']",
+        "xpath=//button[2]",
+        "css=#misarticulos > div > div > div > table > tbody > tr:nth-child(2) > td > form > div > button:nth-child(2)"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=Mis artículos",
+      "Value": "",
+      "Targets": [
+        "linkText=Mis artículos",
+        "name=lnkMisArticulos",
+        "xpath=//*[@id=\"about\"]/div[4]/div/div/div/ul/li[2]/a",
+        "xpath=//a[@name='lnkMisArticulos']",
+        "xpath=//div/ul/li[2]/a",
+        "css=#about > div.content-wrapper > div > div > div > ul > li:nth-child(2) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "verifyText",
+      "Target": "linkText=Es público: No",
+      "Value": "Es público: No",
+      "Targets": [
+        "linkText=Es público: Sí",
+        "xpath=//*[@id=\"misarticulos\"]/div/div/div/table/tbody/tr/td/div/div/h1[2]/a",
+        "xpath=//h1[2]/a",
+        "css=#misarticulos > div > div > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div > div > h1:nth-child(2) > a"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "si esta",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnPublicar_1",
+      "Value": "",
+      "Targets": [
+        "name=btnPublicar_1",
+        "xpath=//*[@id=\"misarticulos\"]/div/div/div/table/tbody/tr[2]/td/form/div/button",
+        "xpath=//button[@name='btnPublicar_1']",
+        "xpath=//button",
+        "css=#misarticulos > div > div > div > table > tbody > tr:nth-child(2) > td > form > div > button:nth-child(1)"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "50",
+      "Value": "!TIMEOUT_WAIT",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=lnkArticulos",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"lnkArticulos\"]/span",
+        "xpath=//li[2]/a/span",
+        "css=#lnkArticulos > span"
+      ],
+      "Description": ""
+    }
+  ]
+}

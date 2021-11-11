@@ -1,0 +1,294 @@
+{
+  "Name": "02_Registro2",
+  "CreationDate": "2021-10-21",
+  "Commands": [
+    {
+      "Command": "open",
+      "Target": "http://localhost/C2/index.php",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=btnRegistrar",
+      "Value": "",
+      "Targets": [
+        "name=btnRegistrar",
+        "xpath=//*[@id=\"login-form\"]/div[5]/input[2]",
+        "xpath=//input[@name='btnRegistrar']",
+        "xpath=//input[2]",
+        "css=#login-form > div:nth-child(6) > input:nth-child(2)"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=txtNombre",
+      "Value": "",
+      "Targets": [
+        "id=txtNombre",
+        "name=txtNombre",
+        "xpath=//*[@id=\"txtNombre\"]",
+        "xpath=//form/input",
+        "css=#txtNombre"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "name=txtNombre",
+      "Value": "Paula Ximena",
+      "Targets": [
+        "id=txtNombre",
+        "name=txtNombre",
+        "xpath=//*[@id=\"txtNombre\"]",
+        "xpath=//form/input",
+        "css=#txtNombre"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=txtApellidos",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "name=txtApellidos",
+      "Value": "Rocha Vargas",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtCorreo",
+      "Value": "",
+      "Targets": [
+        "id=txtCorreo",
+        "name=txtCorreo",
+        "xpath=//*[@id=\"txtCorreo\"]",
+        "xpath=//input[@id='txtCorreo']",
+        "xpath=//input[3]",
+        "css=#txtCorreo"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCorreo",
+      "Value": "paula@correo.com",
+      "Targets": [
+        "id=txtCorreo",
+        "name=txtCorreo",
+        "xpath=//*[@id=\"txtCorreo\"]",
+        "xpath=//input[@id='txtCorreo']",
+        "xpath=//input[3]",
+        "css=#txtCorreo"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtDir",
+      "Value": "",
+      "Targets": [
+        "id=txtDir",
+        "name=txtDir",
+        "xpath=//*[@id=\"txtDir\"]",
+        "xpath=//input[@id='txtDir']",
+        "xpath=//input[4]",
+        "css=#txtDir"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtDir",
+      "Value": "carrera 9 #4-31",
+      "Targets": [
+        "id=txtDir",
+        "name=txtDir",
+        "xpath=//*[@id=\"txtDir\"]",
+        "xpath=//input[@id='txtDir']",
+        "xpath=//input[4]",
+        "css=#txtDir"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtNumHij",
+      "Value": "",
+      "Targets": [
+        "id=txtNumHij",
+        "name=txtNumHij",
+        "xpath=//*[@id=\"txtNumHij\"]",
+        "xpath=//input[@id='txtNumHij']",
+        "xpath=//input[5]",
+        "css=#txtNumHij"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNumHij",
+      "Value": "1",
+      "Targets": [
+        "id=txtNumHij",
+        "name=txtNumHij",
+        "xpath=//*[@id=\"txtNumHij\"]",
+        "xpath=//input[@id='txtNumHij']",
+        "xpath=//input[5]",
+        "css=#txtNumHij"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtEstCivil",
+      "Value": "",
+      "Targets": [
+        "id=txtEstCivil",
+        "name=txtEstCivil",
+        "xpath=//*[@id=\"txtEstCivil\"]",
+        "xpath=//input[@id='txtEstCivil']",
+        "xpath=//input[6]",
+        "css=#txtEstCivil"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtEstCivil",
+      "Value": "Soltera",
+      "Targets": [
+        "id=txtEstCivil",
+        "name=txtEstCivil",
+        "xpath=//*[@id=\"txtEstCivil\"]",
+        "xpath=//input[@id='txtEstCivil']",
+        "xpath=//input[6]",
+        "css=#txtEstCivil"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=archivo",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "c:\\tmp\\cambioPaula.jpg",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "${KEY_ENTER}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtUsuario",
+      "Value": "",
+      "Targets": [
+        "id=txtUsuario",
+        "name=txtUsuario",
+        "xpath=//*[@id=\"txtUsuario\"]",
+        "xpath=//input[@id='txtUsuario']",
+        "xpath=//input[7]",
+        "css=#txtUsuario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtUsuario",
+      "Value": "Pau",
+      "Targets": [
+        "id=txtUsuario",
+        "name=txtUsuario",
+        "xpath=//*[@id=\"txtUsuario\"]",
+        "xpath=//input[@id='txtUsuario']",
+        "xpath=//input[7]",
+        "css=#txtUsuario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtClave",
+      "Value": "",
+      "Targets": [
+        "id=txtClave",
+        "name=txtClave",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave']",
+        "xpath=//input[8]",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtClave",
+      "Value": "12345",
+      "Targets": [
+        "id=txtClave",
+        "name=txtClave",
+        "xpath=//*[@id=\"txtClave\"]",
+        "xpath=//input[@id='txtClave']",
+        "xpath=//input[8]",
+        "css=#txtClave"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=captcha",
+      "Value": "store",
+      "Targets": [
+        "id=captcha",
+        "xpath=//*[@id=\"captcha\"]",
+        "xpath=//input[@id='captcha']",
+        "xpath=//input",
+        "css=#captcha"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "name=txtCaptcha",
+      "Value": "${store}",
+      "Targets": [
+        "name=txtCaptcha",
+        "xpath=/html/body/form/div[11]/input",
+        "xpath=//input[@name='txtCaptcha']",
+        "xpath=//div[11]/input",
+        "css=body > form > div:nth-child(11) > input"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=btnRegistrar",
+      "Value": "",
+      "Targets": [
+        "name=btnRegistrar",
+        "xpath=//*[@id=\"login-form\"]/input[11]",
+        "xpath=//input[@name='btnRegistrar']",
+        "xpath=//input[11]",
+        "css=#login-form > input:nth-child(35)"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
