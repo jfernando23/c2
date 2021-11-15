@@ -12,6 +12,7 @@ if (isset($_POST['btnIngresar'])) {
 if (isset($_POST['btnRegistrar'])) {
     header("location:registro.php");
 }
+
 ?>
 <html>
 
@@ -26,6 +27,7 @@ if (isset($_POST['btnRegistrar'])) {
 <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
+<script type="text/javascript" src="js/app.js"></script>
 
 
 <div id="login">
@@ -37,6 +39,30 @@ if (isset($_POST['btnRegistrar'])) {
                     <form id="login-form" class="form" action="" method="post">
                         <h3 class="text-center text-info">Inicio de sesión</h3>
                         <?php
+                        if ($_SESSION['error'] == 1) {
+                            echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Contraseña incorrecta</strong> 
+                        </div>';
+                        }else if($_SESSION['error'] == 2){
+                            echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Usuario no existe</strong>
+                            
+                        </div>';
+                        }else if($_SESSION['error'] == 6){
+                            echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Usuario creado, ahora puede ingresar con usuario y contraseña</strong>
+                            
+                        </div>';
+                        }
                         $captcha_text = rand(1000, 9999);
                         echo '<div class="form-group">
                         <label for="username" class="text-info">Captcha generado:</label><br>
@@ -57,12 +83,12 @@ if (isset($_POST['btnRegistrar'])) {
                             <br>
                         </div>
                         <div style="white-space:nowrap;" class="form-group">
-                            <input  type="submit" name="btnIngresar" value="Ingresar" class="btn btn-info btn-md">
+                            <input type="submit" name="btnIngresar" value="Ingresar" class="btn btn-info btn-md">
                         </div>
                     </form>
                     <form id="login-form" class="form" action="" method="post">
-                    <input type="submit" name="btnRegistrar" class="btn btn-info btn-md" value="Registrar">
-                    </form>  
+                        <input type="submit" name="btnRegistrar" class="btn btn-info btn-md" value="Registrar">
+                    </form>
                 </div>
             </div>
         </div>

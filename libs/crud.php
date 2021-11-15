@@ -6,9 +6,7 @@
         $sentencia->execute();
         $resultado = $sentencia->fetch();
         if( $resultado>=1){
-        echo "<script>alert('Usuario ya se encuentra registrado');
-        window.location='registro.php';
-        </script>";
+            $_SESSION['error']=7;
         }
         else{
         $sentencia=$conexion->prepare("INSERT INTO `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=?, `USUARIO`=?, `CLAVE`=?");
@@ -16,12 +14,13 @@
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
-            echo "<script>alert('Usuario creado');
+            $_SESSION['error']=6;
+            echo "<script>
             window.location='index.php';
             </script>";
         }else{
-            echo "<script>alert('Errror al crear usuario');
-            </script>";
+            //echo "<script>alert('Errror al crear usuario');</script>";
+            $_SESSION['error']=3;
         }
         }
         $sentencia->close();
@@ -37,6 +36,7 @@
         if ($fila = $resultado->fetch_assoc()) {
         $pass_db = $fila['CLAVE']; 
         if ($contrasena == $pass_db) {
+            $_SESSION['error'] = 0;
             $_SESSION['id']=$fila['ID_USUARIO'];
             $_SESSION['nombre']=$fila['NOMBRE'];
             $_SESSION['apellidos']=$fila['APELLIDO'];
@@ -49,12 +49,11 @@
             $_SESSION['clave']=$fila['CLAVE'];
             header("location:principal.php");
         }else {
-            echo "<script>alert('Contraseña incorrecta');
-            </script>";
+            $_SESSION['error']=1;
+            //echo '<div class="alert alert-info">Contraseña equivocada</div>';
         }
         }else{
-        echo "<script>alert('Usuario no existe');
-        </script>";
+            $_SESSION['error']=2;
         }
         $sentencia->close();
         $conexion->close();
