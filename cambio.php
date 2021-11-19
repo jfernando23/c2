@@ -3,8 +3,14 @@ include_once "libs/sesionsegura.php";
 //session_start();
 require "limpiar.php";
 include_once "libs/crud.php";
+
 if (!isset($_SESSION['id'])) {
     header("location:index.php");
+}
+if (isset($_POST['btnActualizar'])) {
+    if (!isset($_POST['anticsrf']) || !isset($_SESSION['anticsrf']) || $_POST['anticsrf'] != $_SESSION['anticsrf']) {
+        exit();
+    }
 }
 $error = 0;
 if (isset($_POST['btnActualizar'])) {
@@ -17,6 +23,8 @@ if (isset($_POST['btnActualizar'])) {
         $error = 1;
     }
 }
+$anticsrf = rand(1000, 9999);
+$_SESSION['anticsrf'] = $anticsrf;
 ?>
 <html>
 
@@ -72,6 +80,7 @@ if (isset($_POST['btnActualizar'])) {
                             <br>
                         </div>
                         <div class="form-group">
+                            <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                             <input type="submit" name="btnActualizar" class="btn btn-info btn-md" value="Actualizar">
                         </div>
                     </form>

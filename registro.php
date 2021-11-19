@@ -3,6 +3,15 @@ include_once "libs/sesionsegura.php";
 //session_start();
 include_once "libs/crud.php";
 require "limpiar.php";
+if (!isset($_SESSION['error'])) {
+    $_SESSION['error']=0;
+}
+if (isset($_POST['btnRegistrar'])) {
+    if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf']!=$_SESSION['anticsrf']) {
+        exit();
+    }
+}
+
 if (isset($_POST['btnRegistrar'])) {
     if (isset($_FILES['archivo']['tmp_name'])) {
         $fileTmpPath = $_FILES['archivo']['tmp_name'];
@@ -129,7 +138,8 @@ if (isset($_POST['btnRegistrar'])) {
                         <label for="password" class="text-info">Contraseña:</label><br>
                         <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]" class="form-control" required>
                         <label for="password" class="text-info">Captcha</label><br>
-                        <input name="txtCaptcha" id="txtcaptcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
+                        <input name="txtCaptcha" id="txtcaptcha" type="text" class="form-control" >
+                        <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                         <br>
                         <br>
                         <input type="submit" name="btnRegistrar" value="Registrar" class="btn btn-info btn-md">

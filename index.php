@@ -3,7 +3,19 @@ include_once "libs/sesionsegura.php";
 //session_start();
 require "limpiar.php";
 include_once "libs/crud.php";
-
+if (!isset($_SESSION['error'])) {
+    $_SESSION['error']=0;
+}
+if (isset($_POST['btnRegistrar'])) {
+    if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf'] != $_SESSION['anticsrf']) {
+        exit();
+    }
+}
+if (isset($_POST['btnIngresar'])) {
+    if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf']!=$_SESSION['anticsrf']) {
+        exit();
+    }
+}
 if (isset($_POST['btnIngresar'])) {
     $usuario = LimpiarCadena($_POST['txtUsuario']);
     $contrasena = hash("sha512", LimpiarCadena($_POST['txtClave']));
@@ -12,7 +24,8 @@ if (isset($_POST['btnIngresar'])) {
 if (isset($_POST['btnRegistrar'])) {
     header("location:registro.php");
 }
-
+$anticsrf = rand(1000,9999);
+$_SESSION['anticsrf']=$anticsrf;
 ?>
 <html>
 
@@ -79,7 +92,8 @@ if (isset($_POST['btnRegistrar'])) {
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Captcha</label><br>
-                            <input name="txtCaptcha" id="txtCaptcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
+                            <input name="txtCaptcha" id="txtCaptcha" type="text"  class="form-control" required>
+                            <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                             <br>
                         </div>
                         <div style="white-space:nowrap;" class="form-group">
@@ -87,6 +101,7 @@ if (isset($_POST['btnRegistrar'])) {
                         </div>
                     </form>
                     <form id="login-form" class="form" action="" method="post">
+                        <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                         <input type="submit" name="btnRegistrar" class="btn btn-info btn-md" value="Registrar">
                     </form>
                 </div>

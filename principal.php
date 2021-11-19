@@ -1,12 +1,17 @@
 <?php
 include_once "libs/sesionsegura.php";
-//session_start();
-$img = $_SESSION['foto'];
 include_once "libs/crud.php";
 require "limpiar.php";
+if (isset($_POST['btnActualizar'])||isset($_POST['btnEnviar'])||isset($_POST['btnCrear'])||isset($_POST['btnBorrar_1'])||isset($_POST['btnPublicar_1'])||isset($_POST['btnDespublicar_1'])) {
+  if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf']!=$_SESSION['anticsrf']) {
+      exit();
+  }
+}
+
 if (!isset($_SESSION['id'])) {
   header("location:index.php");
 }
+$img = $_SESSION['foto'];
 if (isset($_POST['btnActualizar'])) {
   if (isset($_FILES['archivo2']['tmp_name'])) {
     $fileTmpPath = $_FILES['archivo2']['tmp_name'];
@@ -148,6 +153,8 @@ $resultado2 = mostrarid($_SESSION['id']);
 $usu = mostrarusu();
 $mensa = mostrarmensajes($_SESSION['id']);
 $mensajem = mostrarmensajesen($_SESSION['id']);
+$anticsrf = rand(1000,9999);
+$_SESSION['anticsrf']=$anticsrf;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -316,6 +323,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                                         <button type="submit" name="btnPublicar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Publicar</button>
                                         <button type="submit" name="btnDespublicar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Despublicar</button>
                                         <button type="submit" name="btnBorrar_1" value="<?php echo $fila2['ID_TUIT']; ?>" class="btn btn-outline-primary">Borrar</button>
+                                        <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                                       </div>
                                     </form>
                                   </td>
@@ -349,6 +357,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                           </div>
                           <div class="form-group">
                             <br>
+                            <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                             <input type="submit" name="btnCrear" value="Crear" class="btn btn-info btn-md">
                           </div>
                         </form>
@@ -504,6 +513,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                             </div>
                             <div class="form-group">
                               <br>
+                              <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                               <input type="submit" name="btnEnviar" value="Enviar" class="btn btn-info btn-md">
                             </div>
                           </form>
@@ -582,6 +592,7 @@ $mensajem = mostrarmensajesen($_SESSION['id']);
                   <br>
                 </div>
                 <div class="form-group">
+                  <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                   <input type="submit" name="btnActualizar" value="Actualizar" class="btn btn-info btn-md">
                   <a href="cambio.php"><input name="btnCambio" type="button" value="Cambiar Clave" class="btn btn-info btn-md"></a>
                 </div>

@@ -3,7 +3,7 @@
 if (ini_set('session.use_only_cookies', 1) === FALSE) {
 			$action = "error";
 			$error = "No puedo iniciar una sesion segura (ini_set)";
-		}
+}
 
 		// Obtener los parámetros de la cookie de sesión
 		$cookieParams = session_get_cookie_params();
