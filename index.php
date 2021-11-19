@@ -16,11 +16,17 @@ if (isset($_POST['btnIngresar'])) {
         exit();
     }
 }
-if (isset($_POST['btnIngresar'])) {
-    $usuario = LimpiarCadena($_POST['txtUsuario']);
-    $contrasena = hash("sha512", LimpiarCadena($_POST['txtClave']));
-    login($usuario, $contrasena);
+try {
+    if (isset($_POST['btnIngresar']) & isset($_POST['txtUsuario']) & isset($_POST['txtClave'])) {
+        $usuario = LimpiarCadena($_POST['txtUsuario']);
+        $contrasena = hash("sha512", LimpiarCadena($_POST['txtClave']));
+        login($usuario, $contrasena);
+    }
+} catch (\Throwable $th) {
+    echo "Hola";
+    $_SESSION['error'] =1;
 }
+
 if (isset($_POST['btnRegistrar'])) {
     header("location:registro.php");
 }
