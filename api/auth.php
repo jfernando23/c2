@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             'exp' => $time + (60*60),
             'data' => ['usuario' => $datos]
         );
-
+        
         $jwt = JWT::encode($data,$key);
         echo $jwt;
         header("HTTP/1.1 200 OK");
