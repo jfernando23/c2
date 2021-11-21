@@ -51,5 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             exit();
         }
     }
+    else {
+            echo 'Acceso no autorizado';
+            http_response_code (401);
+            exit();
+    }
 }
 ?>
