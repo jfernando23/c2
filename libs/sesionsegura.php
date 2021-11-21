@@ -10,7 +10,7 @@ if (ini_set('session.use_only_cookies', 1) === FALSE) {
 		$path = $cookieParams["path"];
 
 		// Inicio y control de la sesión		
-		$secure = false;
+		$secure = true;
 		$httponly = true;
 		$samesite = 'strict';
 		
