@@ -48,6 +48,7 @@
             $_SESSION['usuario']=$fila['USUARIO'];
             $_SESSION['clave']=$fila['CLAVE'];
             header("location:principal.php");
+            return $fila;
         }else {
             $_SESSION['error']=1;
             //echo '<div class="alert alert-info">Contraseña equivocada</div>';
