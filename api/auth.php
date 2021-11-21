@@ -32,7 +32,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         http_response_code(401);
         exit();	
     }
-    //$datos = Consultar($id);
-    
+    //$datos = Consultar($id); 
+}
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    //Recordar poner en httpd.conf: SetEnvIf Authorization "(.*)"
+    $jwt = $_SERVER['HTTP_AUTHORIZATION'];
+
+    if (substr($jwt, 0, 6) === "Bearer") {
+        $jwt = str_replace("Bearer ", "", $jwt);
+        try {
+            $data = JWT::decode($jwt, $key, array('HS256'));
+            echo json_encode($data);
+            http_response_code(200);
+            exit();
+        } catch (\Throwable $th) {
+            echo 'Credenciales erroneas';
+            http_response_code(401);
+            exit();
+        }
+    }
 }
 ?>
