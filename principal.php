@@ -460,7 +460,7 @@ $_SESSION['anticsrf']=$anticsrf;
                                     <td>
                                       <div class="media">
                                         <?php $FOTO3 = $filamio['FOTO'];
-                                        $FOTO3B = $filamio['ARCHIVO']
+                                        $FOTO3B = $filamio['ARCHIVO'];
                                         ?>
                                         <div class="profile">
                                           <h1 name="lblAutor_2" class="text-light"><a class="font-weight-bold"><?php echo $filamio['DESTINO']; ?></a></h1>
