@@ -69,10 +69,12 @@
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
+            return 'Creado con éxito';
             echo "<script>alert('Tuit creado correctamente');
             window.location='principal.php';
             </script>";
         }else{
+            return 'Creado no se pudo crear';
             echo "<script>alert('No se pudo crear tuit');
             </script>";
         }
@@ -150,12 +152,15 @@
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
+            return 'Se elimino correctamente el tuit';
         }else {
+            return 'El tuit no le petenece al usuario';
             echo "<script>alert('No se puede eliminar');
             window.location='principal.php#about';
             </script>";
         }
         }else{
+            return 'No existe el tuit';
         echo "<script>alert('No existe el tuit');
         window.location='principal.php#about';
         </script>";
@@ -174,12 +179,15 @@
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
+            return 'Se publico el tuit';
         }else {
+            return 'El tuit no le petenece al usuario';
             echo "<script>alert('No se puede publicar este tuit');
             window.location='principal.php#about';
             </script>";
         }
         }else{
+            return 'No existe el tuit';
         echo "<script>alert('No existe el tuit');
         window.location='principal.php#about';
         </script>";
@@ -198,12 +206,15 @@
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
+            return 'Se despublico el tuit';
         }else {
+            return 'El tuit no le petenece al usuario';
             echo "<script>alert('No se puede desplublicar este tuit');
             window.location='principal.php#about';
             </script>";
         }
         }else{
+            return 'No existe el tuit';
         echo "<script>alert('No existe el tuit');
         window.location='principal.php#about';
         </script>";
