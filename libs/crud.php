@@ -15,12 +15,14 @@
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
             $_SESSION['error']=6;
+            return 1;
             echo "<script>
             window.location='index.php';
             </script>";
         }else{
             //echo "<script>alert('Errror al crear usuario');</script>";
             $_SESSION['error']=3;
+            return 0;
         }
         }
         $sentencia->close();
