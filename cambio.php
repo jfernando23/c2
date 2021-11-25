@@ -29,7 +29,6 @@ try {
             }else{
                 $error = 2; 
             }
-
         }
     }
 } catch (\Throwable $th) {
@@ -70,7 +69,10 @@ $_SESSION['anticsrf'] = $anticsrf;
                             echo '<div class="alert alert-info">Los campos Contraseña nueva y repetir contraseña deben ser igual</div> ';
                         }else if($error == 2){
                             echo '<div class="alert alert-info">El captcha no corresponde al indicado</div> ';
+                        }else if ($_SESSION['error'] == 24) {  
+                            echo '<div class="alert alert-info">No se pudo cambiar la contraseña</div> ';
                         }
+
                         ?>
                         <?php
                         echo '<div class="form-group">

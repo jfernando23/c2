@@ -18,7 +18,6 @@
             header('location: index.php');
             return 1;
         }else{
-            //echo "<script>alert('Errror al crear usuario');</script>";
             $_SESSION['error']=3;
             return 0;
         }
@@ -51,7 +50,6 @@
             return $fila;
         }else {
             $_SESSION['error']=1;
-            //echo '<div class="alert alert-info">Contraseña equivocada</div>';
         }
         }else{
             $_SESSION['error']=2;
@@ -69,37 +67,29 @@
         if ($resultado==1) {
             $_SESSION['error']=15;
             header("location:principal.php");
-            /*echo "<script>alert('Tuit creado correctamente');
-            window.location='principal.php';
-            </script>";*/
             return 'Creado con éxito';
         }else{
             $_SESSION['error']=16;
             header("location:principal.php");
-            /*echo "<script>alert('No se pudo crear tuit');
-            </script>";*/
             return 'El tuit no se pudo crear';
         }
         $sentencia->close();
         $conexion->close();
     }
 
-    function enviarmensaje($ido, $iddes, $mensaje,$Foto1){
-        
+    function enviarmensaje($ido, $iddes, $mensaje,$Foto1){     
         require "conexion.php";
         $sentencia=$conexion->prepare("INSERT INTO `mensajes` SET `MENSAJE`=?, `ID_USUARIOD`=?, `ID_USUARIOO`=? ,`ARCHIVO`=?");
         $sentencia->bind_param('siis',$mensaje,$iddes,$ido,$Foto1);
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
-            echo "<script>alert('Mensaje creado');
-            window.location='principal.php#resume';
-            </script>";
+            $_SESSION['error']=17;
+            header("location:principal.php#resume");
             return "Mensaje Creado"; 
         }else{
-            echo "<script>alert('No se pudo enviar el mensaje');
-            window.location='principal.php#resume';
-            </script>";
+            $_SESSION['error']=18;
+            header("location:principal.php#resume");
             return "No se pudo enviar el Mensaje"; 
         }
         $sentencia->close();
@@ -156,18 +146,19 @@
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
+
+            $_SESSION['error']=21;
+            header("location:principal.php");
             return 'Se elimino correctamente el tuit';
         }else {
-            return 'El tuit no le petenece al usuario';
-            echo "<script>alert('No se puede eliminar');
-            window.location='principal.php#about';
-            </script>";
+            $_SESSION['error']=22;
+            header("location:principal.php");
+            return 'La acción no se pudo completar';
         }
         }else{
-            return 'No existe el tuit';
-        echo "<script>alert('No existe el tuit');
-        window.location='principal.php#about';
-        </script>";
+            $_SESSION['error']=22;
+            header("location:principal.php");
+            return 'La acción no se pudo completar';
         }  
     }
     function publicar($idt,$idu){
@@ -183,18 +174,19 @@
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
+
+            $_SESSION['error']=21;
+            header("location:principal.php");
             return 'Se publico el tuit';
         }else {
-            return 'El tuit no le petenece al usuario';
-            echo "<script>alert('No se puede publicar este tuit');
-            window.location='principal.php#about';
-            </script>";
+            $_SESSION['error']=22;
+            header("location:principal.php");
+            return 'La acción no se pudo completar';
         }
         }else{
-            return 'No existe el tuit';
-        echo "<script>alert('No existe el tuit');
-        window.location='principal.php#about';
-        </script>";
+            $_SESSION['error']=22;
+            header("location:principal.php");
+            return 'La acción no se pudo completar';
         }  
     }
     function despublicar($idt,$idu){
@@ -210,18 +202,19 @@
             $sentencia->bind_param('i',$idt);
             $sentencia->execute();
             $resultado = $sentencia->get_result();
+
+            $_SESSION['error']=21;
+            header("location:principal.php");
             return 'Se despublico el tuit';
         }else {
+            $_SESSION['error']=22;
+            header("location:principal.php");
             return 'El tuit no le petenece al usuario';
-            echo "<script>alert('No se puede desplublicar este tuit');
-            window.location='principal.php#about';
-            </script>";
         }
         }else{
+            $_SESSION['error']=22;
+            header("location:principal.php");
             return 'No existe el tuit';
-        echo "<script>alert('No existe el tuit');
-        window.location='principal.php#about';
-        </script>";
         }  
     }
     function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1,$IDU){
@@ -239,15 +232,15 @@
             $_SESSION['hijos']=$Hijos1;
             $_SESSION['estado']=$Estado1;
             $_SESSION['foto']=$Foto1;
-            echo "<script>alert('Cambio realizado');
-            window.location='principal.php';
-            </script>";
+
+            $_SESSION['error']=19;
+            header("location:principal.php");
+            return "Datos actualizados";
         }else{
-            echo "<script>alert('No se pudo realizar el cambio');
-            window.location='principal.php';
-            </script>";
-        }
-        
+            $_SESSION['error']=20;
+            header("location:principal.php");
+            return "Datos NO actualizados";   
+        } 
         $sentencia->close();
         $conexion->close();    
     }
@@ -266,24 +259,18 @@
             $sentencia->execute();
             $resultado = $sentencia-> affected_rows;
             if ($resultado==1) {
+                $_SESSION['error']=0;
                 echo '<div class="alert alert-info">La contrseña se cambio correctamente</div> ';
-                header("refresh:7; url= index.php");
+                header("refresh:1; url= index.php");
                 session_destroy();
-                /*echo "<script>alert('Cambio realizado');
-                window.location='index.php';
-                </script>";*/
             }else{
-                echo "<script>alert('No se pudo realizar el cambio');
-                </script>";
+                $_SESSION['error']=24;
             }
-            
         }else {
-            echo "<script>alert('La contraseña anterior no coincide');
-            </script>";
+            $_SESSION['error']=24;
         }
         }else{
-        echo "<script>alert('Usuario no existe');
-        </script>";
+            $_SESSION['error']=24;
         }
         $sentencia->close();
         $conexion->close();    

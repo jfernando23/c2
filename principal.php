@@ -179,6 +179,20 @@ $_SESSION['anticsrf'] = $anticsrf;
                             </button>
                             <strong>No se pudo crear el tuit</strong>
                         </div>';
+      }else if ($_SESSION['error'] == 21) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Acción completada correctamente</strong>
+                        </div>';
+      }else if ($_SESSION['error'] == 22) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>La acción no se pudo completar</strong>
+                        </div>';
       }
       ?>
       <div class="mx-auto"></div>
@@ -334,6 +348,23 @@ $_SESSION['anticsrf'] = $anticsrf;
         <div class="section-title">
           <h2>Mensajes</h2>
         </div>
+        <?php
+      if ($_SESSION['error'] == 17) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Mensaje enviado correctamente</strong> 
+                        </div>';
+      } else if ($_SESSION['error'] == 18) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>No se pudo enviar el mensaje</strong>
+                        </div>';
+      }
+      ?>
         <div class="mx-auto"></div>
         <div class="clearfix"></div>
         <div class="content-wrapper">
@@ -492,6 +523,23 @@ $_SESSION['anticsrf'] = $anticsrf;
         <div class="section-title">
           <h2>Mi Pérfil</h2>
         </div>
+        <?php
+      if ($_SESSION['error'] == 19) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Datos actualizados correctamente</strong> 
+                        </div>';
+      } else if ($_SESSION['error'] == 20) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>No se pudo actualizar</strong>
+                        </div>';
+      }
+      ?>
         <div class="mx-auto" style="width: 500px;">
           <div class="card" style="width: 30rem;">
             <img class="card-img-top" src="<?php echo "archivos/$img"; ?>" alt="Card image cap">
