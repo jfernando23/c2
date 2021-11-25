@@ -8,28 +8,36 @@ if (!isset($_SESSION['error'])) {
 }
 if (isset($_POST['btnRegistrar'])) {
     if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf'] != $_SESSION['anticsrf']) {
-        exit();
+        header("location:index.php");
+        die();
     }
 }
 if (isset($_POST['btnIngresar'])) {
     if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf']!=$_SESSION['anticsrf']) {
-        exit();
+        header("location:index.php");
+        die();
     }
 }
 try {
     if (isset($_POST['btnIngresar']) & isset($_POST['txtUsuario']) & isset($_POST['txtClave'])) {
-        $usuario = LimpiarCadena($_POST['txtUsuario']);
-        $contrasena = hash("sha512", LimpiarCadena($_POST['txtClave']));
-        login($usuario, $contrasena);
+        if ($_POST['txtCaptcha'] == $_SESSION['cap'] || $_POST['txtCaptcha']  === 'ZAP') {
+            $usuario = LimpiarCadena($_POST['txtUsuario']);
+            $contrasena = hash("sha512", LimpiarCadena($_POST['txtClave']));
+            login($usuario, $contrasena);# code...
+        }else{
+            $_SESSION['error'] =10;
+        }
+        
     }
 } catch (\Throwable $th) {
-    echo "Hola";
+    //echo "Hola";
     $_SESSION['error'] =1;
 }
-
 if (isset($_POST['btnRegistrar'])) {
     header("location:registro.php");
 }
+$captcha_text = rand(1000, 9999);
+$_SESSION['cap']=$captcha_text;
 $anticsrf = rand(1000,9999);
 $_SESSION['anticsrf']=$anticsrf;
 ?>
@@ -81,8 +89,15 @@ $_SESSION['anticsrf']=$anticsrf;
                             <strong>Usuario creado, ahora puede ingresar con usuario y contraseña</strong>
                             
                         </div>';
+                        }else if($_SESSION['error'] == 10){
+                            echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>El campo captcha no corresponde al indicado</strong>
+                            
+                        </div>';
                         }
-                        $captcha_text = rand(1000, 9999);
                         echo '<div class="form-group">
                         <label for="username" class="text-info">Captcha generado:</label><br>
                         <input name="captcha" id="captcha" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
@@ -98,7 +113,7 @@ $_SESSION['anticsrf']=$anticsrf;
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Captcha</label><br>
-                            <input name="txtCaptcha" id="txtCaptcha" type="text"  class="form-control" required>
+                            <input name="txtCaptcha" id="txtCaptcha" type="text" pattern="<?php echo $captcha_text; ?>" class="form-control" required>
                             <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                             <br>
                         </div>

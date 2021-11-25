@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo "---------------------- \n";
             echo "Origen: ".$fila['ORIGEN']."\n";
             echo "Foto: ".  $fila['FOTO']."\n";
-            echo "Mensaje: ".$filam['MENSAJE']."\n";
+            echo "Mensaje: ".$fila['MENSAJE']."\n";
             echo "Fecha: ".$fila['FECHA']."\n";
             echo "Archivo: ".$fila['ARCHIVO']."\n";
         }
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo "---------------------- \n";
             echo "Destinatario: ".$fila['DESTINO']."\n";
             echo "Foto: ".  $fila['FOTO']."\n";
-            echo "Mensaje: ".$filam['MENSAJE']."\n";
+            echo "Mensaje: ".$fila['MENSAJE']."\n";
             echo "Fecha: ".$fila['FECHA']."\n";
             echo "Archivo: ".$fila['ARCHIVO']."\n";
         }

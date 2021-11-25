@@ -15,10 +15,8 @@
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
             $_SESSION['error']=6;
+            header('location: index.php');
             return 1;
-            echo "<script>
-            window.location='index.php';
-            </script>";
         }else{
             //echo "<script>alert('Errror al crear usuario');</script>";
             $_SESSION['error']=3;
@@ -69,14 +67,18 @@
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
-            return 'Creado con éxito';
-            echo "<script>alert('Tuit creado correctamente');
+            $_SESSION['error']=15;
+            header("location:principal.php");
+            /*echo "<script>alert('Tuit creado correctamente');
             window.location='principal.php';
-            </script>";
+            </script>";*/
+            return 'Creado con éxito';
         }else{
-            return 'Creado no se pudo crear';
-            echo "<script>alert('No se pudo crear tuit');
-            </script>";
+            $_SESSION['error']=16;
+            header("location:principal.php");
+            /*echo "<script>alert('No se pudo crear tuit');
+            </script>";*/
+            return 'El tuit no se pudo crear';
         }
         $sentencia->close();
         $conexion->close();
@@ -222,9 +224,9 @@
         </script>";
         }  
     }
-    function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1){
+    function cambiard($Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1,$IDU){
         require "conexion.php";
-        $IDU=$_SESSION['id'];
+        //$IDU=$_SESSION['id'];
         $sentencia=$conexion->prepare("UPDATE `usuarios` SET `NOMBRE`=?, `APELLIDO`=?, `CORREO`=?, `DIRECCION`=?, `HIJOS`=?, `ESTADO`=?, `FOTO`=? WHERE `ID_USUARIO`=?");
         $sentencia->bind_param('ssssissi',$Nombre1,$Apellido1,$Correo1,$Direccion1,$Hijos1,$Estado1,$Foto1,$IDU);
         $sentencia->execute();
@@ -249,9 +251,9 @@
         $sentencia->close();
         $conexion->close();    
     }
-    function cambiarc($contrasena1,$contrasena2){
+    function cambiarc($contrasena1,$contrasena2,$IDU){
         require "conexion.php";
-        $IDU=$_SESSION['id'];
+        //$IDU=$_SESSION['id'];
         $sentencia=$conexion->prepare("SELECT * FROM `usuarios` WHERE `ID_USUARIO`=?");
         $sentencia->bind_param('i',$IDU);
         $sentencia->execute();
@@ -264,10 +266,12 @@
             $sentencia->execute();
             $resultado = $sentencia-> affected_rows;
             if ($resultado==1) {
+                echo '<div class="alert alert-info">La contrseña se cambio correctamente</div> ';
+                header("refresh:7; url= index.php");
                 session_destroy();
-                echo "<script>alert('Cambio realizado');
+                /*echo "<script>alert('Cambio realizado');
                 window.location='index.php';
-                </script>";
+                </script>";*/
             }else{
                 echo "<script>alert('No se pudo realizar el cambio');
                 </script>";

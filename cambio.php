@@ -9,20 +9,36 @@ if (!isset($_SESSION['id'])) {
 }
 if (isset($_POST['btnActualizar'])) {
     if (!isset($_POST['anticsrf']) || !isset($_SESSION['anticsrf']) || $_POST['anticsrf'] != $_SESSION['anticsrf']) {
-        exit();
+        header("location:cambio.php");
+        die();
     }
 }
 $error = 0;
-if (isset($_POST['btnActualizar'])) {
-    $contraseñaan = hash("sha512", LimpiarCadena($_POST['txAnterior']));
-    $contraseñanu = hash("sha512", LimpiarCadena($_POST['txtNueva']));
-    $contraseñare = hash("sha512", LimpiarCadena($_POST['txtRepetir']));
-    if ($contraseñanu == $contraseñare) {
-        cambiarc($contraseñaan, $contraseñanu);
-    } else {
-        $error = 1;
+try {
+    if (isset($_POST['btnActualizar'])) {
+        if (isset($_POST['txAnterior']) & isset($_POST['txtNueva']) & isset($_POST['txtRepetir'])) {
+            if ($_POST['txtCaptcha']==$_SESSION['cap'] || $_POST['txtCaptcha']  == 'ZAP') {
+                $contraseñaan = hash("sha512", LimpiarCadena($_POST['txAnterior']));
+                $contraseñanu = hash("sha512", LimpiarCadena($_POST['txtNueva']));
+                $contraseñare = hash("sha512", LimpiarCadena($_POST['txtRepetir']));
+                if ($contraseñanu == $contraseñare) {
+                    cambiarc($contraseñaan, $contraseñanu, $_SESSION['id']);
+                } else {
+                    $error = 1;
+                }
+            }else{
+                $error = 2; 
+            }
+
+        }
     }
+} catch (\Throwable $th) {
+    header("location:cambio.php");
+    die();
 }
+
+$captcha_text = rand(1000, 9999);
+$_SESSION['cap'] = $captcha_text;
 $anticsrf = rand(1000, 9999);
 $_SESSION['anticsrf'] = $anticsrf;
 ?>
@@ -52,10 +68,11 @@ $_SESSION['anticsrf'] = $anticsrf;
                         <?php
                         if ($error == 1) {
                             echo '<div class="alert alert-info">Los campos Contraseña nueva y repetir contraseña deben ser igual</div> ';
+                        }else if($error == 2){
+                            echo '<div class="alert alert-info">El captcha no corresponde al indicado</div> ';
                         }
                         ?>
                         <?php
-                        $captcha_text = rand(1000, 9999);
                         echo '<div class="form-group">
                         <label for="username" class="text-info">Captcha generado:</label><br>
                         <input name="captcha" id="captcha" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">

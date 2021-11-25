@@ -25,4 +25,5 @@ if (ini_set('session.use_only_cookies', 1) === FALSE) {
 
 		session_start();
 		session_regenerate_id(true);
+
 ?>

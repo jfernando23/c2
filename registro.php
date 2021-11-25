@@ -2,62 +2,47 @@
 include_once "libs/sesionsegura.php";
 //session_start();
 include_once "libs/crud.php";
-require "limpiar.php";
+include_once "limpiar.php";
+include_once  "imagenp.php";
+
 if (!isset($_SESSION['error'])) {
-    $_SESSION['error']=0;
+    $_SESSION['error'] = 0;
 }
 if (isset($_POST['btnRegistrar'])) {
-    if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf']!=$_SESSION['anticsrf']) {
-        exit();
+    if (!isset($_POST['anticsrf']) || !isset($_SESSION['anticsrf']) || $_POST['anticsrf'] != $_SESSION['anticsrf']) {
+        header("location:registro.php");
+        die();
     }
 }
 
 if (isset($_POST['btnRegistrar'])) {
-    if (isset($_FILES['archivo']['tmp_name'])) {
-        $fileTmpPath = $_FILES['archivo']['tmp_name'];
-        $fileName = $_FILES['archivo']['name'];
-        $fileSize = $_FILES['archivo']['size'];
-        $fileType = $_FILES['archivo']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
 
-        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-
-        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'pdf', 'docx', 'xlsx', 'pptx');
-        if (in_array($fileExtension, $allowedfileExtensions)) {
-
-            // directory in which the uploaded file will be moved
-            $directorio = 'archivos/';
-            if (!file_exists($directorio)) {
-                mkdir($directorio, 0777);
-            }
-
-            $dir = opendir($directorio);
-            $ruta = $directorio . '/' . $newFileName;
-
-            if (move_uploaded_file($fileTmpPath, $ruta)) {
-                //echo "El archivo $filename se ha almacenado correctamente";
-                $Nombre1 = LimpiarCadena($_POST['txtNombre']);
-                $Apellido1 = LimpiarCadena($_POST['txtApellidos']);
-                $Correo1 = LimpiarCadena($_POST['txtCorreo']);
-                $Direccion1 = LimpiarCadena($_POST['txtDir']);
-                $Hijos1 = LimpiarCadena($_POST['txtNumHij']);
-                $Ecivil1 = LimpiarCadena($_POST['txtEstCivil']);
-                $Foto1 = $newFileName;
-                $Usuario1 = LimpiarCadena($_POST['txtUsuario']);
-                $Contrasena1 = hash("sha512", LimpiarCadena($_POST['txtClave']));
-                crearusu($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Ecivil1, $Foto1, $Usuario1, $Contrasena1);
-            } else {
-                //echo "Ha ocurrido un error";
-            }
-            closedir($dir);
-        } else {
-            $_SESSION['error'] = 4;
+    try {
+        if ($_POST['txtCaptcha']==$_SESSION['cap'] || $_POST['txtCaptcha']  == 'ZAP') {
+        $Nombre1 = LimpiarCadena($_POST['txtNombre']);
+        $Apellido1 = LimpiarCadena($_POST['txtApellidos']);
+        $Correo1 = LimpiarCadena($_POST['txtCorreo']);
+        $Direccion1 = LimpiarCadena($_POST['txtDir']);
+        $Hijos1 = LimpiarCadena($_POST['txtNumHij']);
+        $Ecivil1 = LimpiarCadena($_POST['txtEstCivil']);
+        $Foto1 = otro($_FILES['archivo']);
+        $Usuario1 = LimpiarCadena($_POST['txtUsuario']);
+        $Contrasena1 = hash("sha512", LimpiarCadena($_POST['txtClave']));
+        crearusu($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Ecivil1, $Foto1, $Usuario1, $Contrasena1);
+        }else{
+            $_SESSION['error'] = 4; 
         }
-    } else {
-        $_SESSION['error'] = 5;
+
+    } catch (\Throwable $th) {
+        header("location:registro.php");
+        die();
     }
+    
 }
+$captcha_text = rand(1000, 9999);
+$_SESSION['cap'] = $captcha_text;
+$anticsrf = rand(1000, 9999);
+$_SESSION['anticsrf'] = $anticsrf;
 ?>
 
 <html>
@@ -94,15 +79,7 @@ if (isset($_POST['btnRegistrar'])) {
                             <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <strong>El archivo cargado no corresponde al formato permitido</strong>
-                            
-                        </div>';
-                        } else if ($_SESSION['error'] == 5) {
-                            echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
-                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong>No existe el archivo</strong>
+                            <strong>El captcha no corresponde al indicado</strong>
                             
                         </div>';
                         } else if ($_SESSION['error'] == 7) {
@@ -113,7 +90,6 @@ if (isset($_POST['btnRegistrar'])) {
                             <strong>El usuario ya se encuentra registrado</strong>
                         </div>';
                         }
-                        $captcha_text = rand(1000, 9999);
                         echo '<div class="form-group">
                         <label for="username" class="text-info">Captcha generado:</label><br>
                         <input name="captcha" id="captcha" type="text" value="' . $captcha_text . '" pattern="[A-Za-z9-0]" class="form-control">
@@ -138,7 +114,7 @@ if (isset($_POST['btnRegistrar'])) {
                         <label for="password" class="text-info">Contraseña:</label><br>
                         <input name="txtClave" id="txtClave" type="password" pattern="[A-Za-z9-0]" class="form-control" required>
                         <label for="password" class="text-info">Captcha</label><br>
-                        <input name="txtCaptcha" id="txtcaptcha" type="text" class="form-control" >
+                        <input name="txtCaptcha" id="txtcaptcha" type="text" class="form-control" pattern="<?php echo $captcha_text; ?>" required>
                         <input name="anticsrf" type="hidden" value="<?php echo $_SESSION['anticsrf']; ?>">
                         <br>
                         <br>

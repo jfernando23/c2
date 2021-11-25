@@ -1,123 +1,55 @@
 <?php
 include_once "libs/sesionsegura.php";
 include_once "libs/crud.php";
-require "limpiar.php";
-if (isset($_POST['btnActualizar'])||isset($_POST['btnEnviar'])||isset($_POST['btnCrear'])||isset($_POST['btnBorrar_1'])||isset($_POST['btnPublicar_1'])||isset($_POST['btnDespublicar_1'])) {
-  if (!isset($_POST['anticsrf'])||!isset($_SESSION['anticsrf'])||$_POST['anticsrf']!=$_SESSION['anticsrf']) {
-      exit();
+include_once "limpiar.php";
+include_once "imagenp.php";
+if (isset($_POST['btnActualizar']) || isset($_POST['btnEnviar']) || isset($_POST['btnCrear']) || isset($_POST['btnBorrar_1']) || isset($_POST['btnPublicar_1']) || isset($_POST['btnDespublicar_1'])) {
+  if (!isset($_POST['anticsrf']) || !isset($_SESSION['anticsrf']) || $_POST['anticsrf'] != $_SESSION['anticsrf']) {
+    header("location:principal.php");
+    die();
   }
 }
 
 if (!isset($_SESSION['id'])) {
   header("location:index.php");
+  die();
 }
 $img = $_SESSION['foto'];
 if (isset($_POST['btnActualizar'])) {
-  if (isset($_FILES['archivo2']['tmp_name'])) {
-    $fileTmpPath = $_FILES['archivo2']['tmp_name'];
-    $fileName = $_FILES['archivo2']['name'];
-    $fileSize = $_FILES['archivo2']['size'];
-    $fileType = $_FILES['archivo2']['type'];
-    $fileNameCmps = explode(".", $fileName);
-    $fileExtension = strtolower(end($fileNameCmps));
-
-    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-
-    $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'pdf', 'docx', 'xlsx', 'pptx');
-    if (in_array($fileExtension, $allowedfileExtensions)) {
-
-      // directory in which the uploaded file will be moved
-      $directorio = 'archivos/';
-      if (!file_exists($directorio)) {
-        mkdir($directorio, 0777);
-      }
-
-      $dir = opendir($directorio);
-      $ruta = $directorio . '/' . $newFileName;
-
-      if (move_uploaded_file($fileTmpPath, $ruta)) {
-        //echo "El archivo $filename se ha almacenado correctamente";
-      } else {
-        //echo "Ha ocurrido un error";
-      }
-      closedir($dir);
+  try {
+    if (isset($_SESSION['nombre'])) {
+      $Nombre1 = LimpiarCadena($_POST['txtNombre']);
+      $Apellido1 = LimpiarCadena($_POST['txtApellidos']);
+      $Correo1 = LimpiarCadena($_POST['txtCorreo']);
+      $Direccion1 = LimpiarCadena($_POST['txtDir']);
+      $Hijos1 = LimpiarCadena($_POST['txtNumHij']);
+      $Estado1 = LimpiarCadena($_POST['txtEstCivil']);
+      $Foto1 = otro($_FILES['archivo2']);
+      cambiard($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Estado1, $Foto1, $_SESSION['id']);
     } else {
-      echo "<script>alert('El archivo no corresponde a el formato permitido');
-            window.location='registro.php';
-            </script>";
+      header('location: principal.php');
+      exit();
     }
-  } else {
-    echo "<script>alert('No se pudo cargar archivo');
-          window.location='registro.php';
-          </script>";
-  }
-
-
-  if (isset($_SESSION['nombre'])) {
-
-    $Nombre1 = LimpiarCadena($_POST['txtNombre']);
-    $Apellido1 = LimpiarCadena($_POST['txtApellidos']);
-    $Correo1 = LimpiarCadena($_POST['txtCorreo']);
-    $Direccion1 = LimpiarCadena($_POST['txtDir']);
-    $Hijos1 = LimpiarCadena($_POST['txtNumHij']);
-    $Estado1 = LimpiarCadena($_POST['txtEstCivil']);
-    $Foto1 = $newFileName;
-    cambiard($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Estado1, $Foto1);
-  } else {
+  } catch (\Throwable $th) {
     header('location: principal.php');
     exit();
   }
 }
 if (isset($_POST['btnEnviar'])) {
-  if (isset($_FILES['archivo']['tmp_name'])) {
-    $fileTmpPath = $_FILES['archivo']['tmp_name'];
-    $fileName = $_FILES['archivo']['name'];
-    $fileSize = $_FILES['archivo']['size'];
-    $fileType = $_FILES['archivo']['type'];
-    $fileNameCmps = explode(".", $fileName);
-    $fileExtension = strtolower(end($fileNameCmps));
+  try {
+    if (isset($_SESSION['nombre'])) {
 
-    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+      $ido = $_SESSION['id'];
+      $iddes = (int)LimpiarCadena($_POST['cmbDestino']);
+      $mensaje = LimpiarCadena($_POST['txtMensaje']);
 
-    $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg', 'pdf', 'docx', 'xlsx', 'pptx');
-    if (in_array($fileExtension, $allowedfileExtensions)) {
-
-      // directory in which the uploaded file will be moved
-      $directorio = 'archivos/';
-      if (!file_exists($directorio)) {
-        mkdir($directorio, 0777);
-      }
-
-      $dir = opendir($directorio);
-      $ruta = $directorio . '/' . $newFileName;
-
-      if (move_uploaded_file($fileTmpPath, $ruta)) {
-        //echo "El archivo $filename se ha almacenado correctamente";
-      } else {
-        //echo "Ha ocurrido un error";
-      }
-      closedir($dir);
+      $Foto1 = otro($_FILES['archivo']);
+      enviarmensaje($ido, $iddes, $mensaje, $Foto1);
     } else {
-      echo "<script>alert('El archivo no corresponde a el formato permitido');
-            window.location='principal.php';
-            </script>";
+      header('location: principal.php');
+      exit();
     }
-  } else {
-    echo "<script>alert('No se pudo cargar archivo');
-          window.location='registro.php';
-          </script>";
-  }
-
-
-  if (isset($_SESSION['nombre'])) {
-
-    $ido = $_SESSION['id'];
-    $iddes = (int)LimpiarCadena($_POST['cmbDestino']);
-    $mensaje = LimpiarCadena($_POST['txtMensaje']);
-
-    $Foto1 = $newFileName;
-    enviarmensaje($ido, $iddes, $mensaje, $Foto1);
-  } else {
+  } catch (\Throwable $th) {
     header('location: principal.php');
     exit();
   }
@@ -153,8 +85,8 @@ $resultado2 = mostrarid($_SESSION['id']);
 $usu = mostrarusu();
 $mensa = mostrarmensajes($_SESSION['id']);
 $mensajem = mostrarmensajesen($_SESSION['id']);
-$anticsrf = rand(1000,9999);
-$_SESSION['anticsrf']=$anticsrf;
+$anticsrf = rand(1000, 9999);
+$_SESSION['anticsrf'] = $anticsrf;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -206,7 +138,6 @@ $_SESSION['anticsrf']=$anticsrf;
         <?php echo "<img src='archivos/$img'" . '</div><br>'; ?>
         <h1 class="text-light"><a href="index.html"><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellidos']; ?></a></h1>
       </div>
-
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li><a name="lnkHome" id="lnkHome" href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
@@ -233,6 +164,23 @@ $_SESSION['anticsrf']=$anticsrf;
       <div class="section-title">
         <h2>Artículos</h2>
       </div>
+      <?php
+      if ($_SESSION['error'] == 15) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Tuit creado correctamente</strong> 
+                        </div>';
+      } else if ($_SESSION['error'] == 16) {
+        echo '<div class="alert alert-info" id="al" style="display:true" role="alert">
+                            <button type="button" onclick="cerrar()" class="btn btn-info btn-md" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>No se pudo crear el tuit</strong>
+                        </div>';
+      }
+      ?>
       <div class="mx-auto"></div>
       <div class="clearfix"></div>
       <div class="content-wrapper">
