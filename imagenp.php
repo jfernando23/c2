@@ -1,7 +1,7 @@
 <?php
 function  otro($archivo){
 
-  if (isset($archivo['tmp_name'])) {
+  if (isset($archivo['name'])) {
       $fileTmpPath = $archivo['tmp_name'];
       $fileName = $archivo['name'];
       $fileSize = $archivo['size'];
@@ -31,6 +31,8 @@ function  otro($archivo){
                 imagejpeg($img, $ruta, 100);
                 imagedestroy($img);
                 //echo "Se destruyo: $img";
+                return $newFileName;
+              }else{
                 return $newFileName;
               }
           } else {

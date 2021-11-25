@@ -92,15 +92,15 @@
         $sentencia->execute();
         $resultado = $sentencia-> affected_rows;
         if ($resultado==1) {
-            return "Mensaje Creado"; 
             echo "<script>alert('Mensaje creado');
             window.location='principal.php#resume';
             </script>";
+            return "Mensaje Creado"; 
         }else{
-            return "No se pudo enviar el Mensaje"; 
             echo "<script>alert('No se pudo enviar el mensaje');
             window.location='principal.php#resume';
             </script>";
+            return "No se pudo enviar el Mensaje"; 
         }
         $sentencia->close();
         $conexion->close();
