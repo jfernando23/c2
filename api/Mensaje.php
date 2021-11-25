@@ -1,6 +1,6 @@
 <?php
 include_once "../libs/crud.php";
-include_once  "../imagenp.php";
+include_once  "imagenp.php";
 //require __DIR__ . '../vendor/autoload.php';
 include_once "../vendor/autoload.php";// Librería de acceso a datos
 use \Firebase\JWT\JWT;

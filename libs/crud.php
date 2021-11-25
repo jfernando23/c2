@@ -260,7 +260,7 @@
             $resultado = $sentencia-> affected_rows;
             if ($resultado==1) {
                 $_SESSION['error']=0;
-                echo '<div class="alert alert-info">La contrseña se cambio correctamente</div> ';
+                echo '<div class="alert alert-info">La contraseña se cambio correctamente</div> ';
                 header("refresh:1; url= index.php");
                 session_destroy();
             }else{

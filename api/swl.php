@@ -1,6 +1,6 @@
 <?php
 	include_once "../libs/crud.php";// Librería de acceso a datos
-	include_once  "../imagenp.php";
+	include_once  "imagenp.php";
 	// Consultar
 	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		
