@@ -1,4 +1,5 @@
 <?php
+include_once "../limpiar.php";
 include_once "../libs/crud.php";
 include_once  "imagenp.php";
 //require __DIR__ . '../vendor/autoload.php';

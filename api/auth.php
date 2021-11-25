@@ -1,4 +1,5 @@
 <?php
+include_once "../limpiar.php";
 include_once "../libs/crud.php";
 //require __DIR__ . '../vendor/autoload.php';
 include_once "../vendor/autoload.php";// Librería de acceso a datos
@@ -7,8 +8,8 @@ $key = 'my_secret_key';
 $time = time();
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['usuario']) & isset($_POST['contrasena'])) {
-        $usuario = $_POST['usuario'];
-        $contrasena = hash("sha512", $_POST['contrasena']);
+        $usuario = LimpiarCadena($_POST['usuario']);
+        $contrasena = hash("sha512", LimpiarCadena($_POST['contrasena']));
     }else{
         echo "Ingrese cada uno de los datos ";
         http_response_code(401);

@@ -1,4 +1,5 @@
 <?php
+include_once "../limpiar.php";
 include_once "../libs/crud.php"; // Librería de acceso a datos
 include_once  "imagenp.php";
 // Consultar
@@ -17,17 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 // Crear
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (isset($_POST['nombres']) & isset($_POST['apellidos']) & isset($_POST['correo']) & isset($_POST['direccion']) & isset($_POST['hijos']) & isset($_POST['estado']) & isset($_FILES['archivo2']) &  isset($_POST['usuario']) & isset($_POST['contrasena'])) {
+	if (isset($_POST['nombres']) & isset($_POST['apellidos']) & isset($_POST['correo']) & isset($_POST['direccion']) & isset($_POST['hijos']) & isset($_POST['estado']) & isset($_FILES['archivo']) &  isset($_POST['usuario']) & isset($_POST['contrasena'])) {
 		
-					$Nombre1 = $_POST['nombres'];
-					$Apellido1 = $_POST['apellidos'];
-					$Correo1 = $_POST['correo'];
-					$Direccion1 = $_POST['direccion'];
-					$Hijos1 = $_POST['hijos'];
-					$Ecivil1 = $_POST['estado'];
+					$Nombre1 = LimpiarCadena($_POST['nombres']);
+					$Apellido1 = LimpiarCadena($_POST['apellidos']);
+					$Correo1 = LimpiarCadena($_POST['correo']);
+					$Direccion1 = LimpiarCadena($_POST['direccion']);
+					$Hijos1 = LimpiarCadena($_POST['hijos']);
+					$Ecivil1 = LimpiarCadena($_POST['estado']);
 					$Foto1 = otro($_FILES['archivo']);
-					$Usuario1 = $_POST['usuario'];
-					$Contrasena1 = hash("sha512", $_POST['contrasena']);
+					$Usuario1 = LimpiarCadena($_POST['usuario']);
+					$Contrasena1 = hash("sha512", LimpiarCadena($_POST['contrasena']));
 					$datos = crearusu($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Ecivil1, $Foto1, $Usuario1, $Contrasena1);
 					header("HTTP/1.1 200 OK");
 					echo json_encode($datos);
@@ -51,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 	require "ini.php";
 	if (isset($_GET['contrseñaactual']) & isset($_GET['ncontrseña']) & isset($_GET['repetircontraseña'])) {
 		if ($_GET['ncontrseña'] == $_GET['repetircontraseña']) {
-			$contrseñaactual = hash("sha512", $_GET['contrseñaactual']);
-			$ncontrseña = hash("sha512", $_GET['ncontrseña']); # code...
+			$contrseñaactual = hash("sha512", LimpiarCadena($_GET['contrseñaactual']));
+			$ncontrseña = hash("sha512", LimpiarCadena($_GET['ncontrseña'])); # code...
 			cambiarc($contrseñaactual, $ncontrseña, $id);
 		} else {
 			echo 'Los campos de contraseña deben coincidir';

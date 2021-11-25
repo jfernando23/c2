@@ -1,4 +1,5 @@
 <?php
+include_once "../limpiar.php";
 include_once "../libs/crud.php";
 //require __DIR__ . '../vendor/autoload.php';
 include_once "../vendor/autoload.php";// Librería de acceso a datos
@@ -64,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if (isset($_POST['tuit']) & isset($_POST['publico']) ) {
-        $tuit = $_POST['tuit'];
-        $publico = $_POST['publico'];
+        $tuit = LimpiarCadena($_POST['tuit']);
+        $publico = LimpiarCadena($_POST['publico']);
         $datos = tuit($id,$tuit,$publico);
         header("HTTP/1.1 200 OK");
         echo json_encode($datos);
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Borrar
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     if (isset($_GET['eliminar']) ) {
-        $idt= $_GET['eliminar'];
+        $idt= LimpiarCadena($_GET['eliminar']);
         $datos =  eliminar($idt,$id);
         header("HTTP/1.1 200 OK");
         echo json_encode($datos);
@@ -97,13 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 // Actualizar
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     if (isset($_GET['publicar']) ) {
-        $idt= $_GET['publicar'];
+        $idt= LimpiarCadena($_GET['publicar']);
         $datos =  publicar($idt,$id);
         header("HTTP/1.1 200 OK");
         echo json_encode($datos);
         exit();
     }else if(isset($_GET['despublicar'])){
-        $idt= $_GET['despublicar'];
+        $idt= LimpiarCadena($_GET['despublicar']);
         $datos =  despublicar($idt,$id);
         header("HTTP/1.1 200 OK");
         echo json_encode($datos);

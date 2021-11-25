@@ -1,12 +1,13 @@
 <?php
+	include_once "../limpiar.php";
 	include_once "../libs/crud.php";// Librería de acceso a datos
 	include_once  "imagenp.php";
 	// Consultar
 	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		
 		if (isset($_GET['usuario']) & isset($_GET['contrasena'])) {
-			$usuario = $_GET['usuario'];
-            $contrasena = hash("sha512", $_GET['contrasena']);
+			$usuario = LimpiarCadena($_GET['usuario']);
+            $contrasena = hash("sha512", LimpiarCadena($_GET['contrasena']));
 		}
         $datos = login($usuario, $contrasena);
 		//$datos = Consultar($id);
@@ -20,12 +21,12 @@
 		require "ini.php";
 	if (isset($_POST['nombres']) & isset($_POST['apellidos']) & isset($_POST['correo']) & isset($_POST['direccion']) & isset($_POST['hijos']) & isset($_POST['estado']) & isset($_FILES['archivo'])) {
 		
-				$Nombre1 = $_POST['nombres'];
-				$Apellido1 = $_POST['apellidos'];
-				$Correo1 = $_POST['correo'];
-				$Direccion1 = $_POST['direccion'];
-				$Hijos1 = $_POST['hijos'];
-				$Estado1 = $_POST['estado'];
+				$Nombre1 = LimpiarCadena($_POST['nombres']);
+				$Apellido1 = LimpiarCadena($_POST['apellidos']);
+				$Correo1 = LimpiarCadena($_POST['correo']);
+				$Direccion1 = LimpiarCadena($_POST['direccion']);
+				$Hijos1 = LimpiarCadena($_POST['hijos']);
+				$Estado1 = LimpiarCadena($_POST['estado']);
 				$Foto1 = otro($_FILES['archivo']);
 				$datos = cambiard($Nombre1, $Apellido1, $Correo1, $Direccion1, $Hijos1, $Estado1, $Foto1, $id);
 				header("HTTP/1.1 200 OK");
