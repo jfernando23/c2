@@ -1,5 +1,6 @@
 <?php
 include_once "../libs/crud.php";
+include_once  "../imagenp.php";
 //require __DIR__ . '../vendor/autoload.php';
 include_once "../vendor/autoload.php";// Librería de acceso a datos
 use \Firebase\JWT\JWT;
@@ -64,10 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // Crear
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    if (isset($_POST['destinatario']) & isset($_POST['mensaje']) & isset($_POST['archivo']) ) {
+    if (isset($_POST['destinatario']) & isset($_POST['mensaje']) & isset($_FILES['archivo']) ) {
         $desti = $_POST['destinatario'];
         $mensaje = $_POST['mensaje'];
-        $archivo = $_POST['archivo'];
+        $archivo = otro($_FILES['archivo']);
         $datos = enviarmensaje($id, $desti, $mensaje, $archivo);
         header("HTTP/1.1 200 OK");
         echo json_encode($datos);
